@@ -1,13 +1,45 @@
 import React from 'react';
 import { Modal, Button, Badge, ListGroup, Image } from 'react-bootstrap';
+import { CartPlus, Heart, HeartFill, ArrowBarLeft } from 'react-bootstrap-icons';
+import { useCart } from '../contexts/CartContext';
+import { useWishlist } from '../contexts/WishlistContext';
+import { useCompare } from '../contexts/CompareContext';
 
 const ProductModal = ({ product, onClose, onEdit, onDelete }) => {
+  const { addToCart } = useCart();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+  const { addToCompare, removeFromCompare, isInCompare, compareItems } = useCompare();
+
   if (!product) return null;
 
   const getStatusVariant = (status) => {
     if (status?.toLowerCase().includes('stock')) return 'success';
     if (status?.toLowerCase().includes('out')) return 'danger';
     return 'secondary';
+  };
+
+  const handleAddToCart = () => {
+    addToCart(product, 1);
+  };
+
+  const handleWishlistToggle = () => {
+    if (isInWishlist(product.id, product.category)) {
+      removeFromWishlist(product.id, product.category);
+    } else {
+      addToWishlist(product);
+    }
+  };
+
+  const handleCompareToggle = () => {
+    if (isInCompare(product.id, product.category)) {
+      removeFromCompare(product.id, product.category);
+    } else {
+      if (compareItems.length >= 3) {
+        alert('You can compare up to 3 products at a time. Please remove one product from comparison first.');
+        return;
+      }
+      addToCompare(product);
+    }
   };
 
   return (
@@ -69,19 +101,41 @@ const ProductModal = ({ product, onClose, onEdit, onDelete }) => {
         )}
       </Modal.Body>
       <Modal.Footer>
-        {onEdit && (
-          <Button variant="secondary" onClick={() => onEdit(product)}>
-            Edit
+        <div className="d-flex gap-2">
+          <Button variant="danger" onClick={handleAddToCart}>
+            <CartPlus className="me-2" />
+            Add to Cart
           </Button>
-        )}
-        {onDelete && (
-          <Button variant="danger" onClick={() => onDelete(product.id)}>
-            Delete
+          <Button
+            variant={isInWishlist(product.id, product.category) ? 'danger' : 'outline-danger'}
+            onClick={handleWishlistToggle}
+          >
+            {isInWishlist(product.id, product.category) ? <HeartFill /> : <Heart />}
           </Button>
-        )}
-        <Button variant="danger" onClick={onClose}>
-          Close
-        </Button>
+          <Button
+            variant={isInCompare(product.id, product.category) ? 'info' : 'outline-info'}
+            onClick={handleCompareToggle}
+            disabled={!isInCompare(product.id, product.category) && compareItems.length >= 3}
+          >
+            <ArrowBarLeft className="me-2" />
+            {isInCompare(product.id, product.category) ? 'Remove from Compare' : 'Compare'}
+          </Button>
+        </div>
+        <div className="d-flex gap-2 ms-auto">
+          {onEdit && (
+            <Button variant="secondary" onClick={() => onEdit(product)}>
+              Edit
+            </Button>
+          )}
+          {onDelete && (
+            <Button variant="danger" onClick={() => onDelete(product.id)}>
+              Delete
+            </Button>
+          )}
+          <Button variant="secondary" onClick={onClose}>
+            Close
+          </Button>
+        </div>
       </Modal.Footer>
     </Modal>
   );

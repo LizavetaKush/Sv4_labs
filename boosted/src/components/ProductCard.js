@@ -1,7 +1,15 @@
 import React from 'react';
-import { Card, Badge, Form, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Card, Badge, Form, OverlayTrigger, Tooltip, ButtonGroup, Button } from 'react-bootstrap';
+import { Heart, HeartFill, CartPlus, ArrowBarLeft } from 'react-bootstrap-icons';
+import { useCart } from '../contexts/CartContext';
+import { useWishlist } from '../contexts/WishlistContext';
+import { useCompare } from '../contexts/CompareContext';
 
 const ProductCard = ({ product, onClick, isSelected = false, showCheckbox = false, onSelect }) => {
+  const { addToCart } = useCart();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+  const { addToCompare, removeFromCompare, isInCompare, compareItems } = useCompare();
+
   const handleClick = () => {
     if (onClick) {
       onClick(product);
@@ -12,6 +20,33 @@ const ProductCard = ({ product, onClick, isSelected = false, showCheckbox = fals
     e.stopPropagation();
     if (onSelect) {
       onSelect(product.id);
+    }
+  };
+
+  const handleAddToCart = (e) => {
+    e.stopPropagation();
+    addToCart(product, 1);
+  };
+
+  const handleWishlistToggle = (e) => {
+    e.stopPropagation();
+    if (isInWishlist(product.id, product.category)) {
+      removeFromWishlist(product.id, product.category);
+    } else {
+      addToWishlist(product);
+    }
+  };
+
+  const handleCompareToggle = (e) => {
+    e.stopPropagation();
+    if (isInCompare(product.id, product.category)) {
+      removeFromCompare(product.id, product.category);
+    } else {
+      if (compareItems.length >= 3) {
+        alert('You can compare up to 3 products at a time. Please remove one product from comparison first.');
+        return;
+      }
+      addToCompare(product);
     }
   };
 
@@ -79,6 +114,45 @@ const ProductCard = ({ product, onClick, isSelected = false, showCheckbox = fals
               <strong className="text-danger fs-5">${product.price}</strong>
             </Card.Text>
           )}
+          <div className="d-flex gap-2 justify-content-center mt-auto">
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>Add to Cart</Tooltip>}
+            >
+              <Button
+                variant="danger"
+                size="sm"
+                onClick={handleAddToCart}
+              >
+                <CartPlus />
+              </Button>
+            </OverlayTrigger>
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>{isInWishlist(product.id, product.category) ? 'Remove from Wishlist' : 'Add to Wishlist'}</Tooltip>}
+            >
+              <Button
+                variant={isInWishlist(product.id, product.category) ? 'danger' : 'outline-danger'}
+                size="sm"
+                onClick={handleWishlistToggle}
+              >
+                {isInWishlist(product.id, product.category) ? <HeartFill /> : <Heart />}
+              </Button>
+            </OverlayTrigger>
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>{isInCompare(product.id, product.category) ? 'Remove from Compare' : 'Add to Compare'}</Tooltip>}
+            >
+              <Button
+                variant={isInCompare(product.id, product.category) ? 'info' : 'outline-info'}
+                size="sm"
+                onClick={handleCompareToggle}
+                disabled={!isInCompare(product.id, product.category) && compareItems.length >= 3}
+              >
+                <ArrowBarLeft />
+              </Button>
+            </OverlayTrigger>
+          </div>
         </Card.Body>
       </Card>
     </OverlayTrigger>

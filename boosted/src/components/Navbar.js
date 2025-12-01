@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Navbar as BootstrapNavbar, Nav, NavDropdown, Container, Image, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Navbar as BootstrapNavbar, Nav, NavDropdown, Container, Image, OverlayTrigger, Tooltip, Badge } from 'react-bootstrap';
+import { Cart3, Heart, ArrowBarLeft } from 'react-bootstrap-icons';
+import { useCart } from '../contexts/CartContext';
+import { useWishlist } from '../contexts/WishlistContext';
+import { useCompare } from '../contexts/CompareContext';
 import navigationData from '../data/navigation.json';
 
 const Navbar = () => {
   const [expanded, setExpanded] = useState(false);
+  const { getCartItemsCount } = useCart();
+  const { wishlistItems } = useWishlist();
+  const { compareItems } = useCompare();
 
   return (
     <BootstrapNavbar 
@@ -47,7 +54,67 @@ const Navbar = () => {
             ))}
           </Nav>
           
-          <Nav className="ms-auto">
+          <Nav className="ms-auto align-items-center">
+            {/* Cart Icon */}
+            <OverlayTrigger
+              placement="bottom"
+              overlay={<Tooltip id="tooltip-cart">Shopping Cart</Tooltip>}
+            >
+              <Nav.Link as={Link} to="/cart" className="position-relative me-2">
+                <Cart3 size={20} />
+                {getCartItemsCount() > 0 && (
+                  <Badge
+                    bg="danger"
+                    pill
+                    className="position-absolute top-0 start-100 translate-middle"
+                    style={{ fontSize: '0.7rem' }}
+                  >
+                    {getCartItemsCount()}
+                  </Badge>
+                )}
+              </Nav.Link>
+            </OverlayTrigger>
+
+            {/* Wishlist Icon */}
+            <OverlayTrigger
+              placement="bottom"
+              overlay={<Tooltip id="tooltip-wishlist">Wishlist</Tooltip>}
+            >
+              <Nav.Link as={Link} to="/wishlist" className="position-relative me-2">
+                <Heart size={20} />
+                {wishlistItems.length > 0 && (
+                  <Badge
+                    bg="danger"
+                    pill
+                    className="position-absolute top-0 start-100 translate-middle"
+                    style={{ fontSize: '0.7rem' }}
+                  >
+                    {wishlistItems.length}
+                  </Badge>
+                )}
+              </Nav.Link>
+            </OverlayTrigger>
+
+            {/* Compare Icon */}
+            {compareItems.length > 0 && (
+              <OverlayTrigger
+                placement="bottom"
+                overlay={<Tooltip id="tooltip-compare">Compare Products ({compareItems.length})</Tooltip>}
+              >
+                <Nav.Link as={Link} to="/compare" className="position-relative me-2">
+                  <ArrowBarLeft size={20} />
+                  <Badge
+                    bg="info"
+                    pill
+                    className="position-absolute top-0 start-100 translate-middle"
+                    style={{ fontSize: '0.7rem' }}
+                  >
+                    {compareItems.length}
+                  </Badge>
+                </Nav.Link>
+              </OverlayTrigger>
+            )}
+
             {navigationData.socialLinks.map((link, index) => {
               const isFirstLink = index === 0;
               return (
