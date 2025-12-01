@@ -1,70 +1,164 @@
-# Getting Started with Create React App
+# Boosted USA - E-commerce Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React-приложение для интернет-магазина электрических скейтбордов и самокатов Boosted USA.
 
-## Available Scripts
+## Использованная библиотека компонентов
 
-In the project directory, you can run:
+Приложение использует **Bootstrap** через библиотеку **react-bootstrap** для стилизации и компонентов интерфейса.
 
-### `npm start`
+### Установленные пакеты:
+- `bootstrap` - CSS фреймворк Bootstrap
+- `react-bootstrap` - React компоненты Bootstrap
+- `react-bootstrap-icons` - Иконки для Bootstrap
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Использованные компоненты Bootstrap
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+В приложении использовано **более 30 различных компонентов** из библиотеки react-bootstrap:
 
-### `npm test`
+### Основные компоненты макета
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **Container** - Контейнер для центрирования контента
+2. **Row** - Строка сетки Bootstrap
+3. **Col** - Колонка сетки Bootstrap
 
-### `npm run build`
+### Навигация
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. **Navbar** - Навигационная панель (sticky top)
+5. **Nav** - Навигационное меню
+6. **Nav.Link** - Навигационные ссылки
+7. **Navbar.Brand** - Бренд/логотип в навбаре
+8. **Navbar.Toggle** - Кнопка переключения мобильного меню
+9. **Navbar.Collapse** - Сворачиваемый контент навбара
+10. **NavDropdown** - Выпадающее меню навигации
+11. **NavDropdown.Item** - Элемент выпадающего меню
+12. **NavDropdown.Divider** - Разделитель в выпадающем меню
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Карточки и контент
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+13. **Card** - Карточка для отображения контента
+14. **Card.Header** - Заголовок карточки
+15. **Card.Body** - Тело карточки
+16. **Card.Img** - Изображение в карточке
+17. **Card.Title** - Заголовок в карточке
+18. **Card.Text** - Текст в карточке
 
-### `npm run eject`
+### Формы
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+19. **Form** - Форма
+20. **Form.Group** - Группа полей формы
+21. **Form.Label** - Метка поля формы
+22. **Form.Control** - Поле ввода (input, textarea)
+23. **Form.Select** - Выпадающий список
+24. **Form.Range** - Ползунок для выбора диапазона значений
+25. **InputGroup** - Группа полей ввода
+26. **InputGroup.Text** - Текст в группе полей ввода
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Кнопки и действия
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+27. **Button** - Кнопка (различные варианты: primary, secondary, danger, outline)
+28. **ButtonGroup** - Группа кнопок
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Модальные окна
 
-## Learn More
+29. **Modal** - Модальное окно
+30. **Modal.Header** - Заголовок модального окна
+31. **Modal.Body** - Тело модального окна
+32. **Modal.Footer** - Футер модального окна
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Интерактивные элементы
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+33. **Tooltip** - Всплывающая подсказка
+34. **Popover** - Всплывающее окно с информацией
+35. **OverlayTrigger** - Триггер для overlay элементов (tooltip, popover)
+36. **Alert** - Уведомление/алерт
+37. **Badge** - Значок/бейдж
+38. **Spinner** - Индикатор загрузки
 
-### Code Splitting
+### Таблицы и списки
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+39. **Table** - Таблица
+40. **ListGroup** - Группа списка
+41. **ListGroup.Item** - Элемент списка
 
-### Analyzing the Bundle Size
+### Другие компоненты
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+42. **Image** - Изображение с Bootstrap стилями
+43. **ToastContainer** - Контейнер для toast-уведомлений
+44. **Accordion** - Аккордеон (для фильтров)
 
-### Making a Progressive Web App
+## Использованные иконки (react-bootstrap-icons)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- **Cart3** - Иконка корзины
+- **Heart** / **HeartFill** - Иконка избранного
+- **CartPlus** - Иконка добавления в корзину
+- **ArrowBarLeft** - Иконка сравнения
+- **Trash** - Иконка удаления
+- **Plus** / **Dash** - Иконки увеличения/уменьшения
+- **Funnel** / **FunnelFill** - Иконки фильтров
+- **X** - Иконка закрытия
 
-### Advanced Configuration
+## Функциональность приложения
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Основные страницы:
+- **HomePage** - Главная страница с продуктами и секциями
+- **CatalogPage** - Каталог товаров с фильтрацией
+- **ManagePage** - Управление продуктами (CRUD операции)
+- **GiftCardPage** - Страница подарочных карт
+- **CartPage** - Корзина покупок
+- **WishlistPage** - Страница избранного
+- **ComparePage** - Сравнение товаров
 
-### Deployment
+### Новые функции:
+1. **Корзина покупок** - добавление, удаление, изменение количества товаров
+2. **Избранное** - сохранение понравившихся товаров
+3. **Фильтрация товаров** - по цене, статусу, категории
+4. **Сравнение товаров** - сравнение до 3 товаров одновременно
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Технологии
 
-### `npm run build` fails to minify
+- **React 19.2.0** - JavaScript библиотека для создания пользовательских интерфейсов
+- **React Router DOM 7.9.6** - Маршрутизация в React приложении
+- **Bootstrap 5** - CSS фреймворк
+- **react-bootstrap** - React компоненты Bootstrap
+- **react-bootstrap-icons** - Иконки для Bootstrap
+- **Context API** - Управление глобальным состоянием (Cart, Wishlist, Compare)
+- **localStorage** - Сохранение данных между сессиями
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Установка и запуск
+
+```bash
+# Установка зависимостей
+npm install
+
+# Запуск приложения в режиме разработки
+npm start
+
+# Сборка для production
+npm run build
+```
+
+## Структура проекта
+
+```
+boosted/
+├── src/
+│   ├── components/      # React компоненты
+│   ├── contexts/        # Context API провайдеры
+│   ├── pages/           # Страницы приложения
+│   ├── data/            # JSON данные
+│   └── styles.css       # Дополнительные стили
+└── public/              # Статические файлы
+```
+
+## Адаптивность
+
+Приложение полностью адаптивно и корректно отображается на устройствах с шириной экрана от 320px до 1920px благодаря использованию Bootstrap Grid системы.
+
+## Интерактивность
+
+- Hover эффекты на карточках товаров
+- Всплывающие подсказки (Tooltip) на элементах интерфейса
+- Всплывающие окна с информацией (Popover)
+- Анимации появления модальных окон
+- Интерактивные кнопки с визуальной обратной связью
+- Динамическое обновление счетчиков в навбаре
