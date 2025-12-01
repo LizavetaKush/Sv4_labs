@@ -1,0 +1,67 @@
+[
+  {
+    "id": 101,
+    "title": "Rev Tube",
+    "image": "/images/Rectangle(22).png",
+    "salePrice": 16.0,
+    "originalPrice": 19.0,
+    "soldOut": false,
+    "description": "Protective carrying tube for your Boosted Rev scooter.",
+    "category": "Scooter Accessories"
+  },
+  {
+    "id": 102,
+    "title": "Boosted Rev Stem Catch",
+    "image": "/images/Rectangle(23).png",
+    "salePrice": 19.0,
+    "originalPrice": 29.0,
+    "soldOut": false,
+    "description": "Secure your Rev scooter stem with this premium catch mechanism.",
+    "category": "Scooter Accessories"
+  },
+  {
+    "id": 103,
+    "title": "Stomp Brake Fender",
+    "image": "/images/Rectangle(24).png",
+    "soldOut": true,
+    "description": "Additional brake fender for enhanced safety.",
+    "category": "Scooter Accessories"
+  },
+  {
+    "id": 104,
+    "title": "Boosted Belt Kit",
+    "image": "/images/Rectangle(25).png",
+    "price": 25.0,
+    "soldOut": false,
+    "description": "Replacement belt kit for your Boosted board.",
+    "category": "Board Maintenance"
+  },
+  {
+    "id": 105,
+    "title": "Bearing Service Kit",
+    "image": "/images/Rectangle(26).png",
+    "price": 50.0,
+    "soldOut": false,
+    "description": "Complete bearing maintenance kit for smooth riding.",
+    "category": "Board Maintenance"
+  },
+  {
+    "id": 106,
+    "title": "Boosted Pulley / Belt Upgrade Kit",
+    "image": "/images/Rectangle(27).png",
+    "price": 75.0,
+    "soldOut": false,
+    "description": "Upgrade your board's performance with this premium pulley and belt kit.",
+    "category": "Board Maintenance"
+  },
+  {
+    "id": 107,
+    "title": "Boosted Skid Plates",
+    "image": "/images/Rectangle(28).png",
+    "price": 20.0,
+    "soldOut": false,
+    "description": "Protect your board's bottom with durable skid plates.",
+    "category": "Board Maintenance"
+  }
+]
+

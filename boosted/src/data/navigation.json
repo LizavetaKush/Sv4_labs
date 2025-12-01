@@ -1,0 +1,21 @@
+{
+  "orgName": "Boosted USA",
+  "navLinks": [
+    { "label": "Electric Scooters", "href": "/catalog/scooters" },
+    { "label": "Accessories", "href": "/catalog/accessories" },
+    { "label": "Electric Skateboards", "href": "/catalog/boards" },
+    { "label": "Gift Card", "href": "/gift-card" },
+    { "label": "More Info", "href": "/about" }
+  ],
+  "socialLinks": [
+    { "src": "/images/Vector.svg", "alt": "Facebook", "href": "#" },
+    { "src": "/images/cart.svg", "alt": "Cart", "href": "#" }
+  ],
+  "categories": [
+    { "name": "Boards", "path": "/catalog/boards" },
+    { "name": "Scooters", "path": "/catalog/scooters" },
+    { "name": "Accessories", "path": "/catalog/accessories" },
+    { "name": "All Products", "path": "/catalog" }
+  ]
+}
+

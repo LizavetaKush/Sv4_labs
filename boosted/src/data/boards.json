@@ -1,0 +1,43 @@
+[
+  {
+    "id": 1,
+    "title": "Shop Boosted Stealth",
+    "status": "IN STOCK",
+    "image": "/images/Rectangle(17).png",
+    "className": "stealth",
+    "price": 1599,
+    "description": "The fastest board in the Boosted lineup. Top speed of 24 mph and range up to 14 miles.",
+    "features": ["Top speed: 24 mph", "Range: 14 miles", "Flex: Stiff", "Deck: Composite"]
+  },
+  {
+    "id": 2,
+    "title": "Shop Boosted Plus",
+    "status": "IN STOCK",
+    "image": "/images/Rectangle(18).png",
+    "className": "plus",
+    "price": 1399,
+    "description": "Balanced performance and comfort. Perfect for daily commuting.",
+    "features": ["Top speed: 22 mph", "Range: 14 miles", "Flex: Flex", "Deck: Bamboo"]
+  },
+  {
+    "id": 3,
+    "title": "Shop Boosted Mini",
+    "status": "IN STOCK",
+    "image": "/images/Rectangle(19).png",
+    "className": "mini",
+    "price": 999,
+    "description": "Compact and portable electric skateboard. Great for city navigation.",
+    "features": ["Top speed: 20 mph", "Range: 7 miles", "Flex: Stiff", "Deck: Composite"]
+  },
+  {
+    "id": 4,
+    "title": "Shop Boosted Boards",
+    "status": "In Stock",
+    "image": "/images/Rectangle(12).png",
+    "className": "boards-card",
+    "price": 999,
+    "description": "High-performance electric skateboards for commuting and fun.",
+    "features": ["Multiple models available", "Premium quality", "Reliable performance"]
+  }
+]
+

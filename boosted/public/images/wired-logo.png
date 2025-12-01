@@ -1,0 +1,13 @@
+<svg width="180" height="40" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#000000"/>
+  <rect x="10" y="4" width="32" height="32" fill="#333333" stroke="#666666" stroke-width="1"/>
+  <text x="26" y="22" text-anchor="middle" font-family="Arial" font-size="14" fill="white" font-weight="700">W</text>
+  <rect x="46" y="4" width="32" height="32" fill="#333333" stroke="#666666" stroke-width="1"/>
+  <text x="62" y="22" text-anchor="middle" font-family="Arial" font-size="14" fill="white" font-weight="700">I</text>
+  <rect x="82" y="4" width="32" height="32" fill="#333333" stroke="#666666" stroke-width="1"/>
+  <text x="98" y="22" text-anchor="middle" font-family="Arial" font-size="14" fill="white" font-weight="700">R</text>
+  <rect x="118" y="4" width="32" height="32" fill="#333333" stroke="#666666" stroke-width="1"/>
+  <text x="134" y="22" text-anchor="middle" font-family="Arial" font-size="14" fill="white" font-weight="700">E</text>
+  <rect x="154" y="4" width="32" height="32" fill="#333333" stroke="#666666" stroke-width="1"/>
+  <text x="170" y="22" text-anchor="middle" font-family="Arial" font-size="14" fill="white" font-weight="700">D</text>
+</svg>
