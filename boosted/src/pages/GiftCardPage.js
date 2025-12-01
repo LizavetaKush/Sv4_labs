@@ -1,98 +1,179 @@
 import React, { useState } from 'react';
+import { Container, Row, Col, Card, Form, Button, InputGroup, Badge, Alert, ListGroup } from 'react-bootstrap';
+import { OverlayTrigger, Tooltip, Popover } from 'react-bootstrap';
 
 const GiftCardPage = () => {
   const [amount, setAmount] = useState(50);
   const [recipientEmail, setRecipientEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`Gift card for $${amount} will be sent to ${recipientEmail}`);
+    setShowAlert(true);
+    setTimeout(() => {
+      setShowAlert(false);
+      alert(`Gift card for $${amount} will be sent to ${recipientEmail}`);
+    }, 2000);
   };
 
+  const presetAmounts = [25, 50, 100, 200, 500];
+
   return (
-    <div className="gift-card-page">
-      <div className="container">
-        <div className="gift-card-header">
-          <h1>Gift Card</h1>
-          <p className="subtitle">Give the gift of electric mobility</p>
-        </div>
+    <Container className="py-5">
+      <Row className="mb-4">
+        <Col className="text-center">
+          <h1 className="display-4 mb-3">Gift Card</h1>
+          <p className="lead text-muted">Give the gift of electric mobility</p>
+        </Col>
+      </Row>
 
-        <div className="gift-card-content">
-          <div className="gift-card-form-section">
-            <h2>Choose Amount</h2>
-            <div className="amount-options">
-              {[25, 50, 100, 200, 500].map((value) => (
-                <button
-                  key={value}
-                  className={`amount-button ${amount === value ? 'active' : ''}`}
-                  onClick={() => setAmount(value)}
-                >
-                  ${value}
-                </button>
-              ))}
-            </div>
-            <div className="custom-amount">
-              <label>Custom Amount:</label>
-              <input
-                type="number"
-                min="1"
-                value={amount}
-                onChange={(e) => setAmount(parseInt(e.target.value) || 0)}
-                placeholder="Enter amount"
-              />
-            </div>
-          </div>
+      {showAlert && (
+        <Alert variant="success" dismissible onClose={() => setShowAlert(false)}>
+          <Alert.Heading>Processing your gift card purchase...</Alert.Heading>
+        </Alert>
+      )}
 
-          <div className="gift-card-form-section">
-            <h2>Delivery Information</h2>
-            <form onSubmit={handleSubmit} className="gift-card-form">
-              <div className="form-group">
-                <label>Recipient Email:</label>
-                <input
-                  type="email"
-                  value={recipientEmail}
-                  onChange={(e) => setRecipientEmail(e.target.value)}
-                  placeholder="recipient@example.com"
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label>Your Message (Optional):</label>
-                <textarea
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Write a personal message..."
-                  rows="4"
-                />
-              </div>
-              <div className="gift-card-total">
-                <div className="total-amount">
-                  <span>Total:</span>
-                  <span className="amount-value">${amount}.00</span>
-                </div>
-              </div>
-              <button type="submit" className="btn-primary btn-large">
-                Purchase Gift Card
-              </button>
-            </form>
-          </div>
-        </div>
+      <Row className="mb-4">
+        <Col md={6} className="mb-4 mb-md-0">
+          <Card className="h-100 shadow-sm">
+            <Card.Header as="h3" className="bg-white">Choose Amount</Card.Header>
+            <Card.Body>
+              <Row className="g-2 mb-3">
+                {presetAmounts.map((value) => (
+                  <Col xs={6} sm={4} key={value}>
+                    <Button
+                      variant={amount === value ? 'danger' : 'outline-secondary'}
+                      className="w-100"
+                      onClick={() => setAmount(value)}
+                      size="lg"
+                    >
+                      ${value}
+                    </Button>
+                  </Col>
+                ))}
+              </Row>
+              
+              <Form.Group className="mb-3">
+                <Form.Label>
+                  Custom Amount{' '}
+                  <OverlayTrigger
+                    trigger="click"
+                    placement="top"
+                    overlay={
+                      <Popover>
+                        <Popover.Header as="h3">Custom Amount</Popover.Header>
+                        <Popover.Body>
+                          Enter any amount between $1 and $1000. Gift cards can be used for any product in our store.
+                        </Popover.Body>
+                      </Popover>
+                    }
+                  >
+                    <Badge bg="info" className="ms-2" style={{ cursor: 'pointer' }}>?</Badge>
+                  </OverlayTrigger>
+                </Form.Label>
+                <InputGroup>
+                  <InputGroup.Text>$</InputGroup.Text>
+                  <Form.Control
+                    type="number"
+                    min="1"
+                    max="1000"
+                    value={amount}
+                    onChange={(e) => setAmount(parseInt(e.target.value) || 0)}
+                    placeholder="Enter amount"
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Card.Body>
+          </Card>
+        </Col>
 
-        <div className="gift-card-info">
-          <h2>Gift Card Terms</h2>
-          <ul>
-            <li>Gift cards never expire</li>
-            <li>Can be used for any product on Boosted USA</li>
-            <li>Gift cards are delivered via email instantly</li>
-            <li>Can be combined with other gift cards</li>
-            <li>Non-refundable but transferable</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+        <Col md={6}>
+          <Card className="h-100 shadow-sm">
+            <Card.Header as="h3" className="bg-white">Delivery Information</Card.Header>
+            <Card.Body>
+              <Form onSubmit={handleSubmit}>
+                <Form.Group className="mb-3">
+                  <Form.Label>Recipient Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    value={recipientEmail}
+                    onChange={(e) => setRecipientEmail(e.target.value)}
+                    placeholder="recipient@example.com"
+                    required
+                  />
+                </Form.Group>
+                
+                <Form.Group className="mb-3">
+                  <Form.Label>Your Message (Optional)</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={4}
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder="Write a personal message..."
+                  />
+                </Form.Group>
+                
+                <Card className="bg-light mb-3">
+                  <Card.Body>
+                    <Row className="align-items-center">
+                      <Col>
+                        <strong>Total:</strong>
+                      </Col>
+                      <Col xs="auto">
+                        <Badge bg="danger" className="fs-4 px-3 py-2">
+                          ${amount}.00
+                        </Badge>
+                      </Col>
+                    </Row>
+                  </Card.Body>
+                </Card>
+                
+                <Button variant="danger" type="submit" size="lg" className="w-100">
+                  Purchase Gift Card
+                </Button>
+              </Form>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+          <Card className="shadow-sm">
+            <Card.Header as="h3" className="bg-light">Gift Card Terms</Card.Header>
+            <Card.Body>
+              <ListGroup variant="flush">
+                <ListGroup.Item>
+                  <Badge bg="success" className="me-2">✓</Badge>
+                  Gift cards never expire
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Badge bg="success" className="me-2">✓</Badge>
+                  Can be used for any product on Boosted USA
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Badge bg="success" className="me-2">✓</Badge>
+                  Gift cards are delivered via email instantly
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Badge bg="success" className="me-2">✓</Badge>
+                  Can be combined with other gift cards
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Badge bg="success" className="me-2">✓</Badge>
+                  Non-refundable but transferable
+                </ListGroup.Item>
+              </ListGroup>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
 export default GiftCardPage;
+
 

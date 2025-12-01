@@ -1,81 +1,89 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { Modal, Button, Badge, ListGroup, Image } from 'react-bootstrap';
 
 const ProductModal = ({ product, onClose, onEdit, onDelete }) => {
-  useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === 'Escape') {
-        onClose();
-      }
-    };
-    document.addEventListener('keydown', handleEscape);
-    document.body.style.overflow = 'hidden';
-
-    return () => {
-      document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'unset';
-    };
-  }, [onClose]);
-
   if (!product) return null;
 
-  const handleBackdropClick = (e) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
+  const getStatusVariant = (status) => {
+    if (status?.toLowerCase().includes('stock')) return 'success';
+    if (status?.toLowerCase().includes('out')) return 'danger';
+    return 'secondary';
   };
 
   return (
-    <div className="modal-overlay" onClick={handleBackdropClick}>
-      <div className="modal-content">
-        <button className="modal-close" onClick={onClose} title="Close">
-          ×
-        </button>
-        <div className="modal-header">
-          <img src={product.image} alt={product.title} className="modal-image" />
+    <Modal show={!!product} onHide={onClose} size="lg" centered>
+      <Modal.Header closeButton>
+        <Modal.Title>{product.title}</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <div className="text-center mb-3">
+          <Image 
+            src={product.image} 
+            alt={product.title}
+            fluid
+            rounded
+            style={{ maxHeight: '400px', objectFit: 'cover' }}
+          />
         </div>
-        <div className="modal-body">
-          <h2>{product.title}</h2>
-          <p className="modal-status">{product.status}</p>
+        
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <Badge bg={getStatusVariant(product.status)} className="fs-6">
+            {product.status}
+          </Badge>
           {product.price && (
-            <p className="modal-price">${product.price}</p>
+            <h4 className="text-danger mb-0">${product.price}</h4>
           )}
-          {product.description && (
-            <p className="modal-description">{product.description}</p>
-          )}
-          {product.features && (
-            <ul className="modal-features">
+        </div>
+
+        {product.salePrice && product.originalPrice && (
+          <div className="mb-3">
+            <span className="text-decoration-line-through text-muted me-2">
+              ${product.originalPrice}
+            </span>
+            <span className="text-danger fw-bold">${product.salePrice}</span>
+          </div>
+        )}
+
+        {product.description && (
+          <p className="text-muted mb-3">{product.description}</p>
+        )}
+
+        {product.features && product.features.length > 0 && (
+          <div className="mb-3">
+            <h5>Features:</h5>
+            <ListGroup variant="flush">
               {product.features.map((feature, index) => (
-                <li key={index}>{feature}</li>
+                <ListGroup.Item key={index}>
+                  <Badge bg="success" className="me-2">✓</Badge>
+                  {feature}
+                </ListGroup.Item>
               ))}
-            </ul>
-          )}
-          {product.salePrice && product.originalPrice && (
-            <div className="modal-pricing">
-              <span className="sale-price">${product.salePrice}</span>
-              <span className="original-price">${product.originalPrice}</span>
-            </div>
-          )}
-          {product.category && (
-            <p className="modal-category">Category: {product.category}</p>
-          )}
-        </div>
-        <div className="modal-footer">
-          {onEdit && (
-            <button className="btn-secondary" onClick={() => onEdit(product)}>
-              Edit
-            </button>
-          )}
-          {onDelete && (
-            <button className="btn-danger" onClick={() => onDelete(product.id)}>
-              Delete
-            </button>
-          )}
-          <button className="btn-primary" onClick={onClose}>
-            Close
-          </button>
-        </div>
-      </div>
-    </div>
+            </ListGroup>
+          </div>
+        )}
+
+        {product.category && (
+          <p className="text-muted small">
+            <strong>Category:</strong> {product.category}
+          </p>
+        )}
+      </Modal.Body>
+      <Modal.Footer>
+        {onEdit && (
+          <Button variant="secondary" onClick={() => onEdit(product)}>
+            Edit
+          </Button>
+        )}
+        {onDelete && (
+          <Button variant="danger" onClick={() => onDelete(product.id)}>
+            Delete
+          </Button>
+        )}
+        <Button variant="danger" onClick={onClose}>
+          Close
+        </Button>
+      </Modal.Footer>
+    </Modal>
   );
 };
 

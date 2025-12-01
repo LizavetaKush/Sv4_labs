@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Container, Row, Col, Form, Button, InputGroup, Badge, Spinner } from 'react-bootstrap';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import ProductCard from '../components/ProductCard';
 import ProductModal from '../components/ProductModal';
 import boardsData from '../data/boards.json';
@@ -93,47 +95,70 @@ const CatalogPage = () => {
   };
 
   return (
-    <div className="catalog-page">
-      <div className="container">
-        <div className="catalog-header">
-          <h1>{getCategoryTitle()}</h1>
-          <div className="catalog-controls">
-            <input
-              type="text"
-              placeholder="Search products..."
-              value={filter}
-              onChange={(e) => setFilter(e.target.value)}
-              className="search-input"
-            />
-            <button
-              className="btn-secondary"
-              onClick={() => setSelectedIds(new Set())}
-              disabled={selectedIds.size === 0}
-            >
-              Clear Selection ({selectedIds.size})
-            </button>
-          </div>
-        </div>
-        <div className="catalog-grid">
+    <Container className="py-4">
+      <Row className="mb-4">
+        <Col>
+          <h1 className="display-5 mb-4">{getCategoryTitle()}</h1>
+          <Row className="g-3">
+            <Col md={8}>
+              <InputGroup>
+                <InputGroup.Text>
+                  <i className="bi bi-search"></i>
+                </InputGroup.Text>
+                <Form.Control
+                  type="text"
+                  placeholder="Search products..."
+                  value={filter}
+                  onChange={(e) => setFilter(e.target.value)}
+                />
+              </InputGroup>
+            </Col>
+            <Col md={4}>
+              <OverlayTrigger
+                placement="top"
+                overlay={<Tooltip>Clear all selected products</Tooltip>}
+              >
+                <Button
+                  variant="secondary"
+                  onClick={() => setSelectedIds(new Set())}
+                  disabled={selectedIds.size === 0}
+                  className="w-100"
+                >
+                  Clear Selection <Badge bg="light" text="dark">{selectedIds.size}</Badge>
+                </Button>
+              </OverlayTrigger>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+
+      {filteredProducts.length === 0 ? (
+        <Row>
+          <Col className="text-center py-5">
+            <Spinner animation="border" variant="secondary" className="mb-3" />
+            <p className="text-muted">No products found matching your search.</p>
+          </Col>
+        </Row>
+      ) : (
+        <Row className="g-4">
           {filteredProducts.map((product) => (
-            <ProductCard
-              key={product.uniqueId || `${product.category || 'product'}-${product.id}`}
-              product={product}
-              onClick={handleProductClick}
-              isSelected={selectedIds.has(product.id)}
-              showCheckbox={true}
-              onSelect={handleSelect}
-            />
+            <Col key={product.uniqueId || `${product.category || 'product'}-${product.id}`} xs={12} sm={6} md={4} lg={3}>
+              <ProductCard
+                product={product}
+                onClick={handleProductClick}
+                isSelected={selectedIds.has(product.id)}
+                showCheckbox={true}
+                onSelect={handleSelect}
+              />
+            </Col>
           ))}
-        </div>
-        {filteredProducts.length === 0 && (
-          <p className="no-products">No products found matching your search.</p>
-        )}
-      </div>
+        </Row>
+      )}
+
       {selectedProduct && (
         <ProductModal product={selectedProduct} onClose={handleCloseModal} />
       )}
-    </div>
+    </Container>
   );
 };
 

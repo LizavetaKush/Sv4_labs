@@ -1,4 +1,5 @@
 import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 import navigationData from '../data/navigation.json';
 
 const Footer = () => {
@@ -35,53 +36,66 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="footer">
-      <div className="container">
-        <div className="footer-main">
-          <div className="footer-logo">
-            <div className="logo-icon">
-              <img src="/images/Rectangle(29).png" alt={`${navigationData.orgName} Logo`} />
+    <footer className="bg-light mt-5">
+      <Container className="py-5">
+        <Row>
+          <Col md={4} className="mb-4 mb-md-0">
+            <div className="mb-3">
+              <img 
+                src="/images/Rectangle(29).png" 
+                alt={`${navigationData.orgName} Logo`}
+                style={{ maxWidth: '160px', height: 'auto' }}
+              />
             </div>
-          </div>
-          <div className="footer-section">
-            <h4>Explore</h4>
-            <div className="footer-links">
+          </Col>
+          <Col md={4} className="mb-4 mb-md-0">
+            <h5 className="mb-3">Explore</h5>
+            <div className="d-flex flex-column">
               {exploreLinks.map((link) => (
-                <a key={link} href="#">
+                <a 
+                  key={link} 
+                  href="#" 
+                  className="text-decoration-none text-dark mb-2"
+                  style={{ fontSize: '0.875rem' }}
+                >
                   {link}
                 </a>
               ))}
             </div>
-          </div>
-          <div className="footer-section">
-            <h4>About {navigationData.orgName}</h4>
-            <p>{aboutText}</p>
-            <div className="footer-address">
+          </Col>
+          <Col md={4}>
+            <h5 className="mb-3">About {navigationData.orgName}</h5>
+            <p style={{ fontSize: '0.875rem' }}>{aboutText}</p>
+            <div>
               {address.map((line, index) => (
-                <p key={index}>{line}</p>
+                <p key={index} style={{ fontSize: '0.875rem', marginBottom: '0.25rem' }}>{line}</p>
               ))}
             </div>
-          </div>
-        </div>
-      </div>
-      <div className="footer-bottom">
-        <div className="container">
-          <div className="footer-copyright">
-            <span>© 2021 {navigationData.orgName}. All Rights Reserved.</span>
-            <a href="#" className="brand">
-              Terms of Service
-            </a>
-            <span>. Built by</span>
-            <a href="#" className="brand">
-              BH
-            </a>
-          </div>
-          <div className="footer-payment">
-            {payment.map((logo) => (
-              <img key={logo.alt} src={logo.src} alt={logo.alt} />
-            ))}
-          </div>
-        </div>
+          </Col>
+        </Row>
+      </Container>
+      <div className="bg-white border-top py-3">
+        <Container>
+          <Row className="align-items-center">
+            <Col md={6} className="mb-2 mb-md-0">
+              <small className="text-muted">
+                © 2021 {navigationData.orgName}. All Rights Reserved.{' '}
+                <a href="#" className="text-danger text-decoration-none">Terms of Service</a>
+                . Built by <a href="#" className="text-danger text-decoration-none">BH</a>
+              </small>
+            </Col>
+            <Col md={6} className="d-flex gap-2 flex-wrap">
+              {payment.map((logo) => (
+                <img 
+                  key={logo.alt} 
+                  src={logo.src} 
+                  alt={logo.alt}
+                  style={{ height: '20px', width: 'auto' }}
+                />
+              ))}
+            </Col>
+          </Row>
+        </Container>
       </div>
     </footer>
   );

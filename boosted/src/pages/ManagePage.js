@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { createPortal } from 'react-dom';
+import { Container, Row, Col, Button, Form, Modal, Alert, Spinner, InputGroup } from 'react-bootstrap';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import ProductCard from '../components/ProductCard';
 import ProductModal from '../components/ProductModal';
 import boardsData from '../data/boards.json';
@@ -13,6 +14,9 @@ const ManagePage = () => {
   const [editingProduct, setEditingProduct] = useState(null);
   const [showAddForm, setShowAddForm] = useState(false);
   const [filter, setFilter] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertVariant, setAlertVariant] = useState('success');
 
   useEffect(() => {
     loadProducts();
@@ -74,11 +78,20 @@ const ManagePage = () => {
       return newSet;
     });
     handleCloseModal();
+    setAlertMessage('Product deleted successfully');
+    setAlertVariant('success');
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 3000);
   };
 
   const handleDeleteSelected = () => {
+    const count = selectedIds.size;
     setProducts(products.filter(p => !selectedIds.has(p.id)));
     setSelectedIds(new Set());
+    setAlertMessage(`${count} product(s) deleted successfully`);
+    setAlertVariant('success');
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 3000);
   };
 
   const handleEdit = (product) => {
@@ -99,6 +112,10 @@ const ManagePage = () => {
       return p;
     }));
     handleCloseModal();
+    setAlertMessage('Product updated successfully');
+    setAlertVariant('success');
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 3000);
   };
 
   const handleAdd = (newProduct) => {
@@ -112,6 +129,10 @@ const ManagePage = () => {
       status: newProduct.status || 'In Stock'
     };
     setProducts([...products, productWithId]);
+    setAlertMessage('Product added successfully');
+    setAlertVariant('success');
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 3000);
   };
 
   const filteredProducts = products.filter(product =>
@@ -119,61 +140,94 @@ const ManagePage = () => {
   );
 
   return (
-    <div className="manage-page">
-      <div className="container">
-        <div className="manage-header">
-          <h1>Manage Products</h1>
-          <div className="manage-controls">
-            <input
-              type="text"
-              placeholder="Search products..."
-              value={filter}
-              onChange={(e) => setFilter(e.target.value)}
-              className="search-input"
-            />
-            <button
-              className="btn-primary"
-              onClick={() => {
-                setSelectedProduct(null);
-                setIsEditing(false);
-                setEditingProduct(null);
-                setShowAddForm(true);
-              }}
-            >
-              Add Product
-            </button>
-            <button
-              className="btn-danger"
-              onClick={handleDeleteSelected}
-              disabled={selectedIds.size === 0}
-            >
-              Delete Selected ({selectedIds.size})
-            </button>
-            <button
-              className="btn-secondary"
-              onClick={() => setSelectedIds(new Set())}
-              disabled={selectedIds.size === 0}
-            >
-              Clear Selection
-            </button>
-          </div>
-        </div>
-        <div className="catalog-grid">
+    <Container className="py-4">
+      <Row className="mb-4">
+        <Col>
+          <h1 className="display-5 mb-4">Manage Products</h1>
+          
+          {showAlert && (
+            <Alert variant={alertVariant} dismissible onClose={() => setShowAlert(false)}>
+              {alertMessage}
+            </Alert>
+          )}
+
+          <Row className="mb-3 g-3">
+            <Col md={6}>
+              <InputGroup>
+                <InputGroup.Text>
+                  <i className="bi bi-search"></i>
+                </InputGroup.Text>
+                <Form.Control
+                  type="text"
+                  placeholder="Search products..."
+                  value={filter}
+                  onChange={(e) => setFilter(e.target.value)}
+                />
+              </InputGroup>
+            </Col>
+            <Col md={6} className="d-flex gap-2 flex-wrap">
+              <OverlayTrigger
+                placement="top"
+                overlay={<Tooltip>Add a new product to the catalog</Tooltip>}
+              >
+                <Button
+                  variant="danger"
+                  onClick={() => {
+                    setSelectedProduct(null);
+                    setIsEditing(false);
+                    setEditingProduct(null);
+                    setShowAddForm(true);
+                  }}
+                >
+                  Add Product
+                </Button>
+              </OverlayTrigger>
+              <OverlayTrigger
+                placement="top"
+                overlay={<Tooltip>Delete selected products</Tooltip>}
+              >
+                <Button
+                  variant="danger"
+                  onClick={handleDeleteSelected}
+                  disabled={selectedIds.size === 0}
+                >
+                  Delete Selected ({selectedIds.size})
+                </Button>
+              </OverlayTrigger>
+              <Button
+                variant="secondary"
+                onClick={() => setSelectedIds(new Set())}
+                disabled={selectedIds.size === 0}
+              >
+                Clear Selection
+              </Button>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+
+      {filteredProducts.length === 0 ? (
+        <Row>
+          <Col className="text-center py-5">
+            <Spinner animation="border" variant="secondary" className="mb-3" />
+            <p className="text-muted">No products found.</p>
+          </Col>
+        </Row>
+      ) : (
+        <Row className="g-4">
           {filteredProducts.map((product) => (
-            <ProductCard
-              key={product.uniqueId || `${product.category}-${product.id}`}
-              product={product}
-              onClick={handleProductClick}
-              isSelected={selectedIds.has(product.id)}
-              showCheckbox={true}
-              onSelect={handleSelect}
-            />
+            <Col key={product.uniqueId || `${product.category}-${product.id}`} xs={12} sm={6} md={4} lg={3}>
+              <ProductCard
+                product={product}
+                onClick={handleProductClick}
+                isSelected={selectedIds.has(product.id)}
+                showCheckbox={true}
+                onSelect={handleSelect}
+              />
+            </Col>
           ))}
-        </div>
-        {filteredProducts.length === 0 && (
-          <p className="no-products">No products found.</p>
-        )}
-      </div>
+        </Row>
+      )}
       
       {selectedProduct && !isEditing && (
         <ProductModal
@@ -192,22 +246,20 @@ const ManagePage = () => {
         />
       )}
 
-      {showAddForm && createPortal(
-        <AddProductModal
-          onAdd={(newProduct) => {
-            handleAdd(newProduct);
-            setShowAddForm(false);
-            setSelectedProduct(null);
-            setIsEditing(false);
-            setEditingProduct(null);
-          }}
-          onClose={() => {
-            setShowAddForm(false);
-          }}
-        />,
-        document.body
-      )}
-    </div>
+      <AddProductModal
+        show={showAddForm}
+        onAdd={(newProduct) => {
+          handleAdd(newProduct);
+          setShowAddForm(false);
+          setSelectedProduct(null);
+          setIsEditing(false);
+          setEditingProduct(null);
+        }}
+        onClose={() => {
+          setShowAddForm(false);
+        }}
+      />
+    </Container>
   );
 };
 
@@ -225,63 +277,68 @@ const EditProductModal = ({ product, onSave, onClose }) => {
   };
 
   return (
-    <div className="modal-overlay" onClick={(e) => e.target === e.currentTarget && onClose()}>
-      <div className="modal-content">
-        <button className="modal-close" onClick={onClose}>×</button>
-        <h2>Edit Product</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Title:</label>
-            <input
+    <Modal show={!!product} onHide={onClose} centered>
+      <Modal.Header closeButton>
+        <Modal.Title>Edit Product</Modal.Title>
+      </Modal.Header>
+      <Form onSubmit={handleSubmit}>
+        <Modal.Body>
+          <Form.Group className="mb-3">
+            <Form.Label>Title</Form.Label>
+            <Form.Control
               type="text"
               name="title"
               value={formData.title}
               onChange={handleChange}
               required
             />
-          </div>
-          <div className="form-group">
-            <label>Price:</label>
-            <input
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Price</Form.Label>
+            <Form.Control
               type="number"
               name="price"
               value={formData.price || ''}
               onChange={handleChange}
             />
-          </div>
-          <div className="form-group">
-            <label>Status:</label>
-            <input
-              type="text"
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Status</Form.Label>
+            <Form.Select
               name="status"
               value={formData.status || ''}
               onChange={handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <label>Description:</label>
-            <textarea
+            >
+              <option value="In Stock">In Stock</option>
+              <option value="Out of Stock">Out of Stock</option>
+              <option value="Pre-order">Pre-order</option>
+            </Form.Select>
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Description</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={4}
               name="description"
               value={formData.description || ''}
               onChange={handleChange}
-              rows="4"
             />
-          </div>
-          <div className="modal-footer">
-            <button type="button" className="btn-secondary" onClick={onClose}>
-              Cancel
-            </button>
-            <button type="submit" className="btn-primary">
-              Save
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+          </Form.Group>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button variant="danger" type="submit">
+            Save
+          </Button>
+        </Modal.Footer>
+      </Form>
+    </Modal>
   );
 };
 
-const AddProductModal = ({ onAdd, onClose }) => {
+const AddProductModal = ({ show, onAdd, onClose }) => {
   const [formData, setFormData] = useState({
     title: '',
     price: '',
@@ -296,6 +353,14 @@ const AddProductModal = ({ onAdd, onClose }) => {
       ...formData,
       price: formData.price ? parseFloat(formData.price) : undefined,
     });
+    // Reset form
+    setFormData({
+      title: '',
+      price: '',
+      status: 'In Stock',
+      description: '',
+      image: '/images/Rectangle(12).png',
+    });
   };
 
   const handleChange = (e) => {
@@ -304,68 +369,73 @@ const AddProductModal = ({ onAdd, onClose }) => {
   };
 
   return (
-    <div className="modal-overlay" onClick={(e) => e.target === e.currentTarget && onClose()}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose}>×</button>
-        <h2>Add New Product</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Title:</label>
-            <input
+    <Modal show={show} onHide={onClose} centered>
+      <Modal.Header closeButton>
+        <Modal.Title>Add New Product</Modal.Title>
+      </Modal.Header>
+      <Form onSubmit={handleSubmit}>
+        <Modal.Body>
+          <Form.Group className="mb-3">
+            <Form.Label>Title</Form.Label>
+            <Form.Control
               type="text"
               name="title"
               value={formData.title}
               onChange={handleChange}
               required
             />
-          </div>
-          <div className="form-group">
-            <label>Price:</label>
-            <input
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Price</Form.Label>
+            <Form.Control
               type="number"
               name="price"
               value={formData.price}
               onChange={handleChange}
             />
-          </div>
-          <div className="form-group">
-            <label>Status:</label>
-            <input
-              type="text"
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Status</Form.Label>
+            <Form.Select
               name="status"
               value={formData.status}
               onChange={handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <label>Description:</label>
-            <textarea
+            >
+              <option value="In Stock">In Stock</option>
+              <option value="Out of Stock">Out of Stock</option>
+              <option value="Pre-order">Pre-order</option>
+            </Form.Select>
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Description</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={4}
               name="description"
               value={formData.description}
               onChange={handleChange}
-              rows="4"
             />
-          </div>
-          <div className="form-group">
-            <label>Image URL:</label>
-            <input
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Image URL</Form.Label>
+            <Form.Control
               type="text"
               name="image"
               value={formData.image}
               onChange={handleChange}
             />
-          </div>
-          <div className="modal-footer">
-            <button type="button" className="btn-secondary" onClick={onClose}>
-              Cancel
-            </button>
-            <button type="submit" className="btn-primary">
-              Add Product
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+          </Form.Group>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button variant="danger" type="submit">
+            Add Product
+          </Button>
+        </Modal.Footer>
+      </Form>
+    </Modal>
   );
 };
 
