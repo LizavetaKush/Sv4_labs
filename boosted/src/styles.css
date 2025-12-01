@@ -1,19 +1,19 @@
 /* Reset and Base Styles */
 :root {
-    --hero-content-top-margin: 24px; /* Настройка отступа сверху для hero-content */
-    --electric-skateboards-top-margin: -50px; /* Настройка отступа сверху для Electric Skateboards секции */
-    --skateboards-title-margin: 21px; /* Отступ между заголовком и подзаголовком */
-    --skateboards-subtitle-margin: 11px; /* Отступ между подзаголовком и описанием */
-    --skateboards-description-margin: 20px; /* Отступ между описанием и кнопкой */
-    /* 
-    Примеры использования:
-    --hero-content-top-margin: 50px;  - добавить 50px отступа сверху
-    --hero-content-top-margin: -20px; - уменьшить отступ на 20px
-    --hero-content-top-margin: 100px; - добавить 100px отступа сверху
-    --electric-skateboards-top-margin: -100px; - поднять секцию на 100px выше
-    --skateboards-title-margin: 30px; - увеличить отступ после заголовка
+    --hero-content-top-margin: 24px; /* Adjust hero content vertical offset */
+    --electric-skateboards-top-margin: -50px; /* Pull Electric Skateboards section up/down */
+    --skateboards-title-margin: 21px; /* Spacing under Electric Skateboards title */
+    --skateboards-subtitle-margin: 11px; /* Spacing under Electric Skateboards subtitle */
+    --skateboards-description-margin: 20px; /* Spacing under Electric Skateboards description */
+    /* Examples:
+    --hero-content-top-margin: 50px;  Move hero content down by 50px;
+    --hero-content-top-margin: -20px; Move hero content up by 20px;
+    --hero-content-top-margin: 100px; Move hero content down by 100px;
+    --electric-skateboards-top-margin: -100px; Lift the Electric Skateboards block by 100px;
+    --skateboards-title-margin: 30px; Extra margin below Electric Skateboards title;
     */
 }
+
 
 * {
     margin: 0;
