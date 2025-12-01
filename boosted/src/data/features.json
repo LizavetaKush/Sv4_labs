@@ -1,0 +1,23 @@
+[
+  {
+    "title": "Go Fast",
+    "description": "Boosted is known for its premium performance boards offering a next-level experience.",
+    "image": "/images/Rectangle(4).png"
+  },
+  {
+    "title": "Go Safe",
+    "description": "Safety is a #1 priority for Boosted, always wear a helmet when riding.",
+    "image": "/images/Rectangle(5).png"
+  },
+  {
+    "title": "Go Far",
+    "description": "With optional extended battery life, you can get wherever you need to go reliably.",
+    "image": "/images/Rectangle(6).png"
+  },
+  {
+    "title": "Built to Last!",
+    "description": "Boosted products are engineered to last for years and are extremely reliable.",
+    "image": "/images/Rectangle(7).png"
+  }
+]
+
