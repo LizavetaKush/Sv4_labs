@@ -115,7 +115,7 @@ const Navbar = () => {
               </OverlayTrigger>
             )}
 
-            {navigationData.socialLinks.map((link, index) => {
+            {navigationData.socialLinks.slice(0, -1).map((link, index) => {
               const isFirstLink = index === 0;
               return (
                 <React.Fragment key={link.alt}>
