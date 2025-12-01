@@ -1,358 +1,576 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boosted USA - Electric Skateboards & Scooters</title>
+    <title>Boosted USA - SPA на React</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
-
 <body>
-    <!-- Financing Banner -->
-    <div class="financing-banner">
-        <p>Financing option available at checkout.</p>
-    </div>
+    <div id="root"></div>
 
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <img src="images/Rectangle.png" alt="Boosted USA Logo">
-            </div>
-            <div class="nav-menu">
-                <a href="#" class="nav-link">Electric Scooters</a>
-                <a href="#" class="nav-link">Accessories</a>
-                <a href="#" class="nav-link">Electric Skateboards</a>
-                <a href="#" class="nav-link">Gift Card</a>
-                <a href="#" class="nav-link">More Info</a>
-            </div>
-            <div class="nav-social">
-                <a href="#" class="social-link">
-                    <img src="images/Vector.svg" alt="Facebook">
-                </a>
-                <a href="#" class="social-link">
-                    <img src="images/cart.svg" alt="Twitter">
-                </a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-background">
-            <img src="images/Rectangle(1).png" alt="Boosted Products">
-        </div>
-        <div class="hero-content">
-            <h1 class="hero-title">Welcome to Boosted USA</h1>
-            <p class="hero-subtitle">The Holy Grail of Electric Skateboards and One REVolutionary Scooter</p>
-            <div class="hero-buttons">
-                <button class="btn-primary">BOOSTED REVS</button>
-                <button class="btn-primary">BOOSTED BOARDS</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Partners Section -->
-    <section class="partners">
-        <div class="container">
-            <div class="partners-grid">
-                <div class="partner-logo">
-                    <img src="images/Rectangle(3).png" alt="electrek">
-                </div>
-                <div class="partner-logo">
-                    <img src="images/Rectangle(8).png" alt="TechCrunch">
-                </div>
-                <div class="partner-logo">
-                    <img src="images/Rectangle(9).png" alt="Popular Mechanics">
-                </div>
-                <div class="partner-logo">
-                    <img src="images/Rectangle(10).png" alt="WIRED">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Looking for Section -->
-    <section class="looking-for-section">
-        <div class="looking-for-content">
-            <h2 class="looking-for-title">Looking for Boosted Boards, or Boosted Revs?</h2>
-            <p class="looking-for-description">Boosted USA acquired all of the remaining inventory directly from
-                Boosted. This means we have the electric skateboards and scooter you all love and have been looking for.
-                Get your hands on these highly sought after products while supplies last.</p>
-            <div class="divider-line"></div>
-        </div>
-    </section>
-
-    <!-- Product Showcase Section -->
-    <section class="product-showcase">
-        <div class="container">
-            <div class="showcase-grid">
-                <div class="product-card boards-card">
-                    <div class="product-image">
-                        <img src="images/Rectangle(12).png" alt="Boosted Boards">
+    <script type="text/babel">
+        class FinancingBanner extends React.Component {
+            render() {
+                return (
+                    <div className="financing-banner">
+                        <p>{this.props.text}</p>
                     </div>
-                    <div class="product-overlay">
-                        <div class="product-icon">
-                            <img src="images/Vector(1).svg" alt="Lightning Icon">
+                );
+            }
+        }
+
+        class Navbar extends React.Component {
+            render() {
+                const { orgName, navLinks, socialLinks } = this.props;
+                return (
+                    <nav className="navbar">
+                        <div className="nav-container">
+                            <div className="nav-logo">
+                                <img src="images/Rectangle.png" alt={`${orgName} Logo`} />
+                            </div>
+                            <div className="nav-menu">
+                                {navLinks.map((link) => (
+                                    <a key={link.label} href={link.href} className="nav-link">
+                                        {link.label}
+                                    </a>
+                                ))}
+                            </div>
+                            <div className="nav-social">
+                                {socialLinks.map((link) => (
+                                    <a key={link.alt} href={link.href} className="social-link">
+                                        <img src={link.src} alt={link.alt} />
+                                    </a>
+                                ))}
+                            </div>
                         </div>
-                        <h3>Shop Boosted Boards</h3>
-                        <span class="stock-status">In Stock</span>
-                    </div>
-                </div>
-                <div class="product-card revs-card">
-                    <div class="product-image">
-                        <img src="images/Rectangle(11).png " alt="Boosted Revs">
-                    </div>
-                    <div class="product-overlay">
-                        <div class="product-icon">
-                            <img src="images/Vector(1).svg" alt="Lightning Icon">
+                    </nav>
+                );
+            }
+        }
+
+        class Hero extends React.Component {
+            render() {
+                const { title, subtitle, buttons, background } = this.props;
+                return (
+                    <section className="hero">
+                        <div className="hero-background">
+                            <img src={background} alt={title} />
                         </div>
-                        <h3>Shop Boosted Revs</h3>
-                        <span class="stock-status">In Stock</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                        <div className="hero-content">
+                            <h1 className="hero-title">{title}</h1>
+                            <p className="hero-subtitle">{subtitle}</p>
+                            <div className="hero-buttons">
+                                {buttons.map((btn) => (
+                                    <button key={btn.label} className="btn-primary">
+                                        {btn.label}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+                );
+            }
+        }
 
-    <!-- Electric Skateboards Section -->
-    <section class="electric-skateboards">
-        <div class="skateboards-background">
-            <img src="images/Rectangle(13).png" alt="Electric Skateboards">
-        </div>
-        <div class="skateboards-content">
-            <p class="skateboards-subtitle">High-performance</p>
-            <h2>Electric Skateboards</h2>
-            <p class="skateboards-description">Cruising campus, going to work or getting through that long list of
-                errands has never been easier or more fun.</p>
-            <button class="btn-primary small">Shop Now</button>
-        </div>
-    </section>
+        class Partners extends React.Component {
+            render() {
+                return (
+                    <section className="partners">
+                        <div className="container">
+                            <div className="partners-grid">
+                                {this.props.logos.map((logo) => (
+                                    <div key={logo.alt} className="partner-logo">
+                                        <img src={logo.src} alt={logo.alt} />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+                );
+            }
+        }
 
-    <!-- Boosted Rev Section -->
-    <section class="boosted-rev">
-        <div class="container">
-            <div class="rev-grid">
-                <div class="rev-images">
-                    <div class="rev-image-top">
-                        <img src="images/Rectangle(16).png" alt="Woman on Boosted Rev">
-                    </div>
-                    <div class="rev-image-bottom">
-                        <img src="images/Rectangle(15).png" alt="Boosted Rev Handlebars">
-                    </div>
-                </div>
-                <div class="rev-content">
-                    <h2>Boosted Rev</h2>
-                    <p>There's never been an electric scooter quite like this. Speed past traffic at 24 mph. Go up to 22 miles
-                        on a single charge. You'll get there in no time at all. Stop and go with the roll of your thumb. Its
-                        intuitive design means there's almost no learning curve.</p>
-                    <button class="btn-primary small">Shop Now</button>
-                </div>
-            </div>
-        </div>
-    </section>
+        class LookingFor extends React.Component {
+            render() {
+                const { title, description } = this.props.content;
+                return (
+                    <section className="looking-for-section">
+                        <div className="looking-for-content">
+                            <h2 className="looking-for-title">{title}</h2>
+                            <p className="looking-for-description">{description}</p>
+                            <div className="divider-line"></div>
+                        </div>
+                    </section>
+                );
+            }
+        }
 
-    <!-- Product Models Section -->
-    <section class="product-models">
-        <div class="container">
-            <div class="models-grid">
-                <div class="model-card stealth">
-                    <div class="model-image">
-                        <img src="images/Rectangle(17).png" alt="Boosted Stealth">
-                    </div>
-                    <div class="model-content">
-                        <h3>Shop Boosted Stealth</h3>
-                        <span class="stock-status">IN STOCK</span>
-                    </div>
-                </div>
-                <div class="model-card plus">
-                    <div class="model-image">
-                        <img src="images/Rectangle(18).png" alt="Boosted Plus">
-                    </div>
-                    <div class="model-content">
-                        <h3>Shop Boosted Plus</h3>
-                        <span class="stock-status">IN STOCK</span>
-                    </div>
-                </div>
-                <div class="model-card mini">
-                    <div class="model-image">
-                        <img src="images/Rectangle(19).png" alt="Boosted Mini">
-                    </div>
-                    <div class="model-content">
-                        <h3>Shop Boosted Mini</h3>
-                        <span class="stock-status">IN STOCK</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        class ProductShowcase extends React.Component {
+            render() {
+                return (
+                    <section className="product-showcase">
+                        <div className="container">
+                            <div className="showcase-grid">
+                                {this.props.cards.map((card) => (
+                                    <div key={card.title} className={`product-card ${card.className || ""}`}>
+                                        <div className="product-image">
+                                            <img src={card.image} alt={card.title} />
+                                        </div>
+                                        <div className="product-overlay">
+                                            <div className="product-icon">
+                                                <img src="images/Vector(1).svg" alt="Lightning Icon" />
+                                            </div>
+                                            <h3>{card.title}</h3>
+                                            <span className="stock-status">{card.status}</span>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+                );
+            }
+        }
 
-    <!-- Videos Section -->
-    <section class="videos">
-        <div class="container">
-            <div class="videos-grid">
-                <div class="video-card">
-                    <img src="images/Rectangle(20).png" alt="Introducing Boosted Rev">
-                </div>
-                <div class="video-card">
-                    <img src="images/Rectangle(21).png" alt="Boosted Boards Meet the Fam">
-                </div>
-            </div>
-        </div>
-    </section>
+        class ElectricSkateboards extends React.Component {
+            render() {
+                const { background, subtitle, title, description, buttonText } = this.props.data;
+                return (
+                    <section className="electric-skateboards">
+                        <div className="skateboards-background">
+                            <img src={background} alt={title} />
+                        </div>
+                        <div className="skateboards-content">
+                            <p className="skateboards-subtitle">{subtitle}</p>
+                            <h2>{title}</h2>
+                            <p className="skateboards-description">{description}</p>
+                            <button className="btn-primary small">{buttonText}</button>
+                        </div>
+                    </section>
+                );
+            }
+        }
 
-    <!-- Accessories Section -->
-    <section class="accessories">
-        <div class="container">
-            <h2 class="accessories-title">Looking for Accessories?</h2>
-            <div class="divider-line"></div>
-            <div class="accessories-grid">
-                <div class="accessory-item">
-                    <img src="images/Rectangle(22).png" alt="Rev Tube">
-                    <h4>Rev Tube</h4>
-                    <div class="price-container">
-                        <span class="sale-price">$16.00</span>
-                        <span class="original-price">$19.00</span>
-                    </div>
-                </div>
-                <div class="accessory-item">
-                    <img src="images/Rectangle(23).png" alt="Boosted Rev Stem Catch">
-                    <h4>Boosted Rev Stem Catch</h4>
-                    <div class="price-container">
-                        <span class="sale-price">$19.00</span>
-                        <span class="original-price">$29.00</span>
-                    </div>
-                </div>
-                <div class="accessory-item">
-                    <img src="images/Rectangle(24).png" alt="Stomp Brake Fender">
-                    <h4>Stomp Brake Fender</h4>
-                    <span class="price sold-out">Sold Out</span>
-                </div>
-                <div class="accessory-item">
-                    <img src="images/Rectangle(25).png" alt="Boosted Belt Kit">
-                    <h4>Boosted Belt Kit</h4>
-                    <span class="price">$25.00</span>
-                </div>
-                <div class="accessory-item">
-                    <img src="images/Rectangle(26).png" alt="Bearing Service Kit">
-                    <h4>Bearing Service Kit</h4>
-                    <span class="price">$50.00</span>
-                </div>
-                <div class="accessory-item">
-                    <img src="images/Rectangle(27).png" alt="Boosted Pulley / Belt Upgrade Kit">
-                    <h4>Boosted Pulley / Belt Upgrade Kit</h4>
-                    <span class="price">$75.00</span>
-                </div>
-                <div class="accessory-item">
-                    <img src="images/Rectangle(28).png" alt="Boosted Skid Plates">
-                    <h4>Boosted Skid Plates</h4>
-                    <span class="price">$20.00</span>
-                </div>
-            </div>
-        </div>
-    </section>
+        class BoostedRev extends React.Component {
+            render() {
+                const { title, description, buttonText, images } = this.props.data;
+                return (
+                    <section className="boosted-rev">
+                        <div className="container">
+                            <div className="rev-grid">
+                                <div className="rev-images">
+                                    <div className="rev-image-top">
+                                        <img src={images.top} alt={`${title} Rider`} />
+                                    </div>
+                                    <div className="rev-image-bottom">
+                                        <img src={images.bottom} alt={`${title} Detail`} />
+                                    </div>
+                                </div>
+                                <div className="rev-content">
+                                    <h2>{title}</h2>
+                                    <p>{description}</p>
+                                    <button className="btn-primary small">{buttonText}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                );
+            }
+        }
 
-    <!-- Features Section -->
-    <section class="features">
-        <div class="container">
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-image">
-                        <img src="images/Rectangle(4).png" alt="Go Fast">
-                    </div>
-                    <div class="feature-content">
-                        <h3>Go Fast</h3>
-                        <p>Boosted is known for its premium performance boards offering a next-level experience.</p>
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-image">
-                        <img src="images/Rectangle(5).png" alt="Go Safe">
-                    </div>
-                    <div class="feature-content">
-                        <h3>Go Safe</h3>
-                        <p>Safety is a #1 priority for Boosted, always wear a helmet when riding.</p>
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-image">
-                        <img src="images/Rectangle(6).png" alt="Go Far">
-                    </div>
-                    <div class="feature-content">
-                        <h3>Go Far</h3>
-                        <p>With optional extended battery life, you can get wherever you need to go reliably.</p>
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-image">
-                        <img src="images/Rectangle(7).png" alt="Built to Last">
-                    </div>
-                    <div class="feature-content">
-                        <h3>Built to Last!</h3>
-                        <p>Boosted products are engineered to last for years and are extremely reliable.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        class ProductModels extends React.Component {
+            render() {
+                return (
+                    <section className="product-models">
+                        <div className="models-grid">
+                            {this.props.models.map((model) => (
+                                <div key={model.title} className={`model-card ${model.className || ""}`}>
+                                    <div className="model-image">
+                                        <img src={model.image} alt={model.title} />
+                                    </div>
+                                    <div className="model-content">
+                                        <h3>{model.title}</h3>
+                                        <span className="stock-status">{model.status}</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                );
+            }
+        }
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-main">
-                <div class="footer-logo">
-                    <div class="logo-icon">
-                        <img src="images/Rectangle(29).png" alt="Boosted Logo">
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h4>Explore</h4>
-                    <div class="footer-links">
-                        <a href="#">Electric Skateboards</a>
-                        <a href="#">Electric Scooters</a>
-                        <a href="#">Accessories</a>
-                        <a href="#">FAQs</a>
-                        <a href="#">Warranty</a>
-                        <a href="#">Quick Start Guide</a>
-                        <a href="#">Contact</a>
-                        <a href="#">Gift Card</a>
-                        <a href="#">Accessibility Statement</a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h4>About Boosted USA</h4>
-                    <p>Boosted empowers people everywhere to commute across their cities, campuses, and communities in ways that were never before possible. Boosted is solving one of the biggest problems people face each day: transportation.</p>
-                    <div class="footer-address">
-                        <p>CaliRides LLC - DBA Boosted USA</p>
-                        <p>1281 Andersen Drive Ste. K</p>
-                        <p>San Rafael, CA 94901</p>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <div class="container">
-                    <div class="footer-copyright">
-                        <span>© 2021 Boosted USA. All Rights Reserved.</span>
-                        <a href="#" class="brand">Terms of Service</a>
-                        <span>. Built by</span>
-                        <a href="#" class="brand">BH</a>
-                    </div>
-                    <div class="footer-payment">
-                        <img src="images/Group.png" alt="American Express">
-                        <img src="images/Frame(1).png" alt="Shop Pay">
-                        <img src="images/Frame(2).png" alt="Google Pay">
-                        <img src="images/Frame(3).png" alt="Klarna">
-                        <img src="images/Frame.png" alt="Mastercard">
-                        <img src="images/Frame-1.png" alt="Apple Pay">
-                        <img src="images/Frame-2.png" alt="Venmo">
-                        <img src="images/Frame-3.png" alt="Visa">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+        class Videos extends React.Component {
+            render() {
+                return (
+                    <section className="videos">
+                        <div className="container">
+                            <div className="videos-grid">
+                                {this.props.videos.map((video) => (
+                                    <div key={video.alt} className="video-card">
+                                        <img src={video.image} alt={video.alt} />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+                );
+            }
+        }
+
+        class Accessories extends React.Component {
+            renderPrice(item) {
+                if (item.soldOut) {
+                    return <span className="price sold-out">Sold Out</span>;
+                }
+
+                if (item.originalPrice) {
+                    return (
+                        <div className="price-container">
+                            <span className="sale-price">${item.salePrice}</span>
+                            <span className="original-price">${item.originalPrice}</span>
+                        </div>
+                    );
+                }
+
+                return <span className="price">${item.price}</span>;
+            }
+
+            render() {
+                return (
+                    <section className="accessories">
+                        <div className="container">
+                            <h2 className="accessories-title">Looking for Accessories?</h2>
+                            <div className="divider-line"></div>
+                        </div>
+                        <div className="accessories-grid">
+                            {this.props.items.map((item) => (
+                                <div key={item.title} className="accessory-item">
+                                    <img src={item.image} alt={item.title} />
+                                    <h4>{item.title}</h4>
+                                    {this.renderPrice(item)}
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                );
+            }
+        }
+
+        class Features extends React.Component {
+            render() {
+                return (
+                    <section className="features">
+                        <div className="container">
+                            <div className="features-grid">
+                                {this.props.features.map((feature) => (
+                                    <div key={feature.title} className="feature-card">
+                                        <div className="feature-image">
+                                            <img src={feature.image} alt={feature.title} />
+                                        </div>
+                                        <div className="feature-content">
+                                            <h3>{feature.title}</h3>
+                                            <p>{feature.description}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+                );
+            }
+        }
+
+        class Footer extends React.Component {
+            render() {
+                const { orgName, exploreLinks, aboutText, address, payment } = this.props;
+                return (
+                    <footer className="footer">
+                        <div className="container">
+                            <div className="footer-main">
+                                <div className="footer-logo">
+                                    <div className="logo-icon">
+                                        <img src="images/Rectangle(29).png" alt={`${orgName} Logo`} />
+                                    </div>
+                                </div>
+                                <div className="footer-section">
+                                    <h4>Explore</h4>
+                                    <div className="footer-links">
+                                        {exploreLinks.map((link) => (
+                                            <a key={link} href="#">{link}</a>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="footer-section">
+                                    <h4>About {orgName}</h4>
+                                    <p>{aboutText}</p>
+                                    <div className="footer-address">
+                                        {address.map((line) => (
+                                            <p key={line}>{line}</p>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="footer-bottom">
+                            <div className="container">
+                                <div className="footer-copyright">
+                                    <span>© 2021 {orgName}. All Rights Reserved.</span>
+                                    <a href="#" className="brand">Terms of Service</a>
+                                    <span>. Built by</span>
+                                    <a href="#" className="brand">BH</a>
+                                </div>
+                                <div className="footer-payment">
+                                    {payment.map((logo) => (
+                                        <img key={logo.alt} src={logo.src} alt={logo.alt} />
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+                );
+            }
+        }
+
+        class App extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    orgName: "Boosted USA",
+                    pageTitle: "Welcome to Boosted USA",
+                    heroSubtitle: "The Holy Grail of Electric Skateboards and One REVolutionary Scooter",
+                    navLinks: [
+                        { label: "Electric Scooters", href: "#" },
+                        { label: "Accessories", href: "#" },
+                        { label: "Electric Skateboards", href: "#" },
+                        { label: "Gift Card", href: "#" },
+                        { label: "More Info", href: "#" }
+                    ],
+                    socialLinks: [
+                        { src: "images/Vector.svg", alt: "Facebook", href: "#" },
+                        { src: "images/cart.svg", alt: "Cart", href: "#" }
+                    ],
+                    partnerLogos: [
+                        { src: "images/Rectangle(3).png", alt: "electrek" },
+                        { src: "images/Rectangle(8).png", alt: "TechCrunch" },
+                        { src: "images/Rectangle(9).png", alt: "Popular Mechanics" },
+                        { src: "images/Rectangle(10).png", alt: "WIRED" }
+                    ],
+                    lookingFor: {
+                        title: "Looking for Boosted Boards, or Boosted Revs?",
+                        description:
+                            "Boosted USA acquired all of the remaining inventory directly from Boosted. This means we have the electric skateboards and scooter you all love and have been looking for. Get your hands on these highly sought after products while supplies last."
+                    },
+                    showcaseCards: [
+                        {
+                            title: "Shop Boosted Boards",
+                            status: "In Stock",
+                            image: "images/Rectangle(12).png",
+                            className: "boards-card"
+                        },
+                        {
+                            title: "Shop Boosted Revs",
+                            status: "In Stock",
+                            image: "images/Rectangle(11).png",
+                            className: "revs-card"
+                        }
+                    ],
+                    electricSkateboards: {
+                        background: "images/Rectangle(13).png",
+                        subtitle: "High-performance",
+                        title: "Electric Skateboards",
+                        description:
+                            "Cruising campus, going to work or getting through that long list of errands has never been easier or more fun.",
+                        buttonText: "Shop Now"
+                    },
+                    boostedRev: {
+                        title: "Boosted Rev",
+                        description:
+                            "There's never been an electric scooter quite like this. Speed past traffic at 24 mph. Go up to 22 miles on a single charge. You'll get there in no time at all. Stop and go with the roll of your thumb. Its intuitive design means there's almost no learning curve.",
+                        buttonText: "Shop Now",
+                        images: {
+                            top: "images/Rectangle(16).png",
+                            bottom: "images/Rectangle(15).png"
+                        }
+                    },
+                    models: [
+                        {
+                            title: "Shop Boosted Stealth",
+                            status: "IN STOCK",
+                            image: "images/Rectangle(17).png",
+                            className: "stealth"
+                        },
+                        {
+                            title: "Shop Boosted Plus",
+                            status: "IN STOCK",
+                            image: "images/Rectangle(18).png",
+                            className: "plus"
+                        },
+                        {
+                            title: "Shop Boosted Mini",
+                            status: "IN STOCK",
+                            image: "images/Rectangle(19).png",
+                            className: "mini"
+                        }
+                    ],
+                    videos: [
+                        { image: "images/Rectangle(20).png", alt: "Introducing Boosted Rev" },
+                        { image: "images/Rectangle(21).png", alt: "Boosted Boards Meet the Fam" }
+                    ],
+                    accessories: [
+                        {
+                            title: "Rev Tube",
+                            image: "images/Rectangle(22).png",
+                            salePrice: 16.0,
+                            originalPrice: 19.0
+                        },
+                        {
+                            title: "Boosted Rev Stem Catch",
+                            image: "images/Rectangle(23).png",
+                            salePrice: 19.0,
+                            originalPrice: 29.0
+                        },
+                        {
+                            title: "Stomp Brake Fender",
+                            image: "images/Rectangle(24).png",
+                            soldOut: true
+                        },
+                        {
+                            title: "Boosted Belt Kit",
+                            image: "images/Rectangle(25).png",
+                            price: 25.0
+                        },
+                        {
+                            title: "Bearing Service Kit",
+                            image: "images/Rectangle(26).png",
+                            price: 50.0
+                        },
+                        {
+                            title: "Boosted Pulley / Belt Upgrade Kit",
+                            image: "images/Rectangle(27).png",
+                            price: 75.0
+                        },
+                        {
+                            title: "Boosted Skid Plates",
+                            image: "images/Rectangle(28).png",
+                            price: 20.0
+                        }
+                    ],
+                    features: [
+                        {
+                            title: "Go Fast",
+                            description: "Boosted is known for its premium performance boards offering a next-level experience.",
+                            image: "images/Rectangle(4).png"
+                        },
+                        {
+                            title: "Go Safe",
+                            description: "Safety is a #1 priority for Boosted, always wear a helmet when riding.",
+                            image: "images/Rectangle(5).png"
+                        },
+                        {
+                            title: "Go Far",
+                            description: "With optional extended battery life, you can get wherever you need to go reliably.",
+                            image: "images/Rectangle(6).png"
+                        },
+                        {
+                            title: "Built to Last!",
+                            description: "Boosted products are engineered to last for years and are extremely reliable.",
+                            image: "images/Rectangle(7).png"
+                        }
+                    ],
+                    footer: {
+                        exploreLinks: [
+                            "Electric Skateboards",
+                            "Electric Scooters",
+                            "Accessories",
+                            "FAQs",
+                            "Warranty",
+                            "Quick Start Guide",
+                            "Contact",
+                            "Gift Card",
+                            "Accessibility Statement"
+                        ],
+                        aboutText:
+                            "Boosted empowers people everywhere to commute across their cities, campuses, and communities in ways that were never before possible. Boosted is solving one of the biggest problems people face each day: transportation.",
+                        address: [
+                            "CaliRides LLC - DBA Boosted USA",
+                            "1281 Andersen Drive Ste. K",
+                            "San Rafael, CA 94901"
+                        ],
+                        payment: [
+                            { src: "images/Group.png", alt: "American Express" },
+                            { src: "images/Frame(1).png", alt: "Shop Pay" },
+                            { src: "images/Frame(2).png", alt: "Google Pay" },
+                            { src: "images/Frame(3).png", alt: "Klarna" },
+                            { src: "images/Frame.png", alt: "Mastercard" },
+                            { src: "images/Frame-1.png", alt: "Apple Pay" },
+                            { src: "images/Frame-2.png", alt: "Venmo" },
+                            { src: "images/Frame-3.png", alt: "Visa" }
+                        ]
+                    }
+                };
+            }
+
+            render() {
+                const {
+                    orgName,
+                    pageTitle,
+                    heroSubtitle,
+                    navLinks,
+                    socialLinks,
+                    partnerLogos,
+                    lookingFor,
+                    showcaseCards,
+                    electricSkateboards,
+                    boostedRev,
+                    models,
+                    videos,
+                    accessories,
+                    features,
+                    footer
+                } = this.state;
+
+                return (
+                    <>
+                        <FinancingBanner text="Financing option available at checkout." />
+                        <Navbar orgName={orgName} navLinks={navLinks} socialLinks={socialLinks} />
+                        <Hero
+                            title={pageTitle}
+                            subtitle={heroSubtitle}
+                            buttons={[
+                                { label: "BOOSTED REVS" },
+                                { label: "BOOSTED BOARDS" }
+                            ]}
+                            background="images/Rectangle(1).png"
+                        />
+                        <Partners logos={partnerLogos} />
+                        <LookingFor content={lookingFor} />
+                        <ProductShowcase cards={showcaseCards} />
+                        <ElectricSkateboards data={electricSkateboards} />
+                        <BoostedRev data={boostedRev} />
+                        <ProductModels models={models} />
+                        <Videos videos={videos} />
+                        <Accessories items={accessories} />
+                        <Features features={features} />
+                        <Footer
+                            orgName={orgName}
+                            exploreLinks={footer.exploreLinks}
+                            aboutText={footer.aboutText}
+                            address={footer.address}
+                            payment={footer.payment}
+                        />
+                    </>
+                );
+            }
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />);
+    </script>
 </body>
-
 </html>
