@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "title": "Boosted Rev",
+    "status": "IN STOCK",
+    "image": "/images/Rectangle(11).png",
+    "className": "rev",
+    "price": 1599,
+    "description": "Revolutionary electric scooter for urban commuting. Speed past traffic at 24 mph. Go up to 22 miles on a single charge.",
+    "features": ["Top speed: 24 mph", "Range: 22 miles", "Portable design", "Intuitive controls"]
+  },
+  {
+    "id": 2,
+    "title": "Boosted Rev Pro",
+    "status": "IN STOCK",
+    "image": "/images/Rectangle(11).png",
+    "className": "rev-pro",
+    "price": 1899,
+    "description": "Premium electric scooter with extended range and enhanced performance. Perfect for longer commutes.",
+    "features": ["Top speed: 25 mph", "Range: 28 miles", "Premium build", "Advanced braking"]
+  },
+  {
+    "id": 3,
+    "title": "Boosted Rev Mini",
+    "status": "IN STOCK",
+    "image": "/images/Rectangle(11).png",
+    "className": "rev-mini",
+    "price": 1299,
+    "description": "Compact and lightweight electric scooter. Great for short trips and easy storage.",
+    "features": ["Top speed: 20 mph", "Range: 15 miles", "Lightweight", "Foldable design"]
+  },
+  {
+    "id": 4,
+    "title": "Boosted Rev Sport",
+    "status": "In Stock",
+    "image": "/images/Rectangle(11).png",
+    "className": "rev-sport",
+    "price": 1399,
+    "description": "Sporty electric scooter with agile handling and responsive acceleration.",
+    "features": ["Top speed: 22 mph", "Range: 18 miles", "Sport mode", "Quick acceleration"]
+  },
+  {
+    "id": 5,
+    "title": "Boosted Rev City",
+    "status": "IN STOCK",
+    "image": "/images/Rectangle(11).png",
+    "className": "rev-city",
+    "price": 1499,
+    "description": "Urban-focused electric scooter designed for city streets and daily commuting.",
+    "features": ["Top speed: 23 mph", "Range: 20 miles", "City-optimized", "Comfortable ride"]
+  }
+]
