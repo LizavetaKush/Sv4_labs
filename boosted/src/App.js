@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-bootstrap';
-import { CartProvider } from './contexts/CartContext';
+import { store } from './store/store';
 import { WishlistProvider } from './contexts/WishlistContext';
 import { CompareProvider } from './contexts/CompareContext';
 import Navbar from './components/Navbar';
@@ -14,10 +15,11 @@ import CartPage from './pages/CartPage';
 import WishlistPage from './pages/WishlistPage';
 import ComparePage from './pages/ComparePage';
 import './styles.css';
+import './i18n/config';
 
 function App() {
   return (
-    <CartProvider>
+    <Provider store={store}>
       <WishlistProvider>
         <CompareProvider>
           <Router>
@@ -40,7 +42,7 @@ function App() {
           </Router>
         </CompareProvider>
       </WishlistProvider>
-    </CartProvider>
+    </Provider>
   );
 }
 
