@@ -1,53 +1,55 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button, Form, Modal, Alert, Spinner, InputGroup } from 'react-bootstrap';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import ProductCard from '../components/ProductCard';
 import ProductModal from '../components/ProductModal';
-import boardsData from '../data/boards.json';
-import accessoriesData from '../data/accessories.json';
+import FilterSort from '../components/FilterSort';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import {
+  loadProducts,
+  addProduct,
+  updateProduct,
+  deleteProduct,
+  deleteProducts,
+  setFilters,
+  clearError,
+  selectFilteredAndSortedProducts,
+  selectProductsLoading,
+  selectProductsError,
+} from '../store/slices/productsSlice';
 
 const ManagePage = () => {
-  const [products, setProducts] = useState([]);
+  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+  const products = useAppSelector(selectFilteredAndSortedProducts);
+  const loading = useAppSelector(selectProductsLoading);
+  const error = useAppSelector(selectProductsError);
+  
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedIds, setSelectedIds] = useState(new Set());
   const [isEditing, setIsEditing] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [showAddForm, setShowAddForm] = useState(false);
-  const [filter, setFilter] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [alertVariant, setAlertVariant] = useState('success');
 
   useEffect(() => {
-    loadProducts();
-  }, []);
+    dispatch(loadProducts());
+  }, [dispatch]);
 
-  const loadProducts = () => {
-    // Ensure unique IDs by adding prefix or offset if needed
-    const boards = boardsData.map(board => ({ 
-      ...board, 
-      category: 'board',
-      uniqueId: `board-${board.id}` // Create unique identifier for React keys
-    }));
-    const accessories = accessoriesData.map(accessory => ({ 
-      ...accessory, 
-      category: 'accessory',
-      uniqueId: `accessory-${accessory.id}` // Create unique identifier for React keys
-    }));
-    const allProducts = [...boards, ...accessories];
-    // Remove any duplicates by uniqueId to ensure no duplicate keys
-    const seenIds = new Set();
-    const uniqueProducts = allProducts.filter(product => {
-      const id = product.uniqueId || `${product.category}-${product.id}`;
-      if (seenIds.has(id)) {
-        console.warn(`Duplicate product found with uniqueId: ${id}`, product);
-        return false;
-      }
-      seenIds.add(id);
-      return true;
-    });
-    setProducts(uniqueProducts);
-  };
+  useEffect(() => {
+    if (error) {
+      setAlertMessage(error);
+      setAlertVariant('danger');
+      setShowAlert(true);
+      setTimeout(() => {
+        setShowAlert(false);
+        dispatch(clearError());
+      }, 5000);
+    }
+  }, [error, dispatch]);
 
   const handleProductClick = (product) => {
     setSelectedProduct(product);
@@ -70,28 +72,34 @@ const ManagePage = () => {
     setSelectedIds(newSelected);
   };
 
-  const handleDelete = (productId) => {
-    setProducts(products.filter(p => p.id !== productId));
+  const handleDelete = (product) => {
+    dispatch(deleteProduct({ id: product.id, category: product.category }));
     setSelectedIds(prev => {
       const newSet = new Set(prev);
-      newSet.delete(productId);
+      newSet.delete(product.id);
       return newSet;
     });
     handleCloseModal();
-    setAlertMessage('Product deleted successfully');
+    setAlertMessage(t('products.productDeleted'));
     setAlertVariant('success');
     setShowAlert(true);
     setTimeout(() => setShowAlert(false), 3000);
   };
 
   const handleDeleteSelected = () => {
-    const count = selectedIds.size;
-    setProducts(products.filter(p => !selectedIds.has(p.id)));
-    setSelectedIds(new Set());
-    setAlertMessage(`${count} product(s) deleted successfully`);
-    setAlertVariant('success');
-    setShowAlert(true);
-    setTimeout(() => setShowAlert(false), 3000);
+    const productsToDelete = Array.from(selectedIds).map(id => {
+      const product = products.find(p => p.id === id);
+      return product ? { id: product.id, category: product.category } : null;
+    }).filter(Boolean);
+    
+    if (productsToDelete.length > 0) {
+      dispatch(deleteProducts(productsToDelete));
+      setSelectedIds(new Set());
+      setAlertMessage(t('products.productsDeleted', { count: productsToDelete.length }));
+      setAlertVariant('success');
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 3000);
+    }
   };
 
   const handleEdit = (product) => {
@@ -101,55 +109,45 @@ const ManagePage = () => {
   };
 
   const handleSave = (updatedProduct) => {
-    setProducts(products.map(p => {
-      if (p.id === updatedProduct.id && p.category === updatedProduct.category) {
-        // Preserve uniqueId when updating
-        return {
-          ...updatedProduct,
-          uniqueId: p.uniqueId || `${updatedProduct.category || 'product'}-${updatedProduct.id}`
-        };
-      }
-      return p;
-    }));
+    dispatch(updateProduct(updatedProduct));
     handleCloseModal();
-    setAlertMessage('Product updated successfully');
+    setAlertMessage(t('products.productUpdated'));
     setAlertVariant('success');
     setShowAlert(true);
     setTimeout(() => setShowAlert(false), 3000);
   };
 
   const handleAdd = (newProduct) => {
-    const maxId = Math.max(...products.map(p => p.id || 0), 0);
-    const productCategory = newProduct.category || 'other';
-    const productWithId = { 
-      ...newProduct, 
-      id: maxId + 1,
-      category: productCategory,
-      uniqueId: `${productCategory}-${maxId + 1}`, // Create unique identifier
-      status: newProduct.status || 'In Stock'
-    };
-    setProducts([...products, productWithId]);
-    setAlertMessage('Product added successfully');
+    dispatch(addProduct(newProduct));
+    setShowAddForm(false);
+    setSelectedProduct(null);
+    setIsEditing(false);
+    setEditingProduct(null);
+    setAlertMessage(t('products.productAdded'));
     setAlertVariant('success');
     setShowAlert(true);
     setTimeout(() => setShowAlert(false), 3000);
   };
 
-  const filteredProducts = products.filter(product =>
-    product.title.toLowerCase().includes(filter.toLowerCase())
-  );
+  const handleSearchChange = (e) => {
+    dispatch(setFilters({ search: e.target.value }));
+  };
+
+  const searchValue = useAppSelector(state => state.products.filters.search);
 
   return (
     <Container className="py-4">
       <Row className="mb-4">
         <Col>
-          <h1 className="display-5 mb-4">Manage Products</h1>
+          <h1 className="display-5 mb-4">{t('products.title')}</h1>
           
           {showAlert && (
             <Alert variant={alertVariant} dismissible onClose={() => setShowAlert(false)}>
               {alertMessage}
             </Alert>
           )}
+
+          <FilterSort />
 
           <Row className="mb-3 g-3">
             <Col md={6}>
@@ -159,16 +157,16 @@ const ManagePage = () => {
                 </InputGroup.Text>
                 <Form.Control
                   type="text"
-                  placeholder="Search products..."
-                  value={filter}
-                  onChange={(e) => setFilter(e.target.value)}
+                  placeholder={t('products.searchPlaceholder')}
+                  value={searchValue}
+                  onChange={handleSearchChange}
                 />
               </InputGroup>
             </Col>
             <Col md={6} className="d-flex gap-2 flex-wrap">
               <OverlayTrigger
                 placement="top"
-                overlay={<Tooltip>Add a new product to the catalog</Tooltip>}
+                overlay={<Tooltip>{t('products.addProduct')}</Tooltip>}
               >
                 <Button
                   variant="danger"
@@ -179,19 +177,19 @@ const ManagePage = () => {
                     setShowAddForm(true);
                   }}
                 >
-                  Add Product
+                  {t('products.addProduct')}
                 </Button>
               </OverlayTrigger>
               <OverlayTrigger
                 placement="top"
-                overlay={<Tooltip>Delete selected products</Tooltip>}
+                overlay={<Tooltip>{t('common.delete')}</Tooltip>}
               >
                 <Button
                   variant="danger"
                   onClick={handleDeleteSelected}
                   disabled={selectedIds.size === 0}
                 >
-                  Delete Selected ({selectedIds.size})
+                  {t('common.delete')} ({selectedIds.size})
                 </Button>
               </OverlayTrigger>
               <Button
@@ -199,23 +197,29 @@ const ManagePage = () => {
                 onClick={() => setSelectedIds(new Set())}
                 disabled={selectedIds.size === 0}
               >
-                Clear Selection
+                {t('common.clear')}
               </Button>
             </Col>
           </Row>
         </Col>
       </Row>
 
-      {filteredProducts.length === 0 ? (
+      {loading ? (
         <Row>
           <Col className="text-center py-5">
             <Spinner animation="border" variant="secondary" className="mb-3" />
-            <p className="text-muted">No products found.</p>
+            <p className="text-muted">{t('common.loading')}</p>
+          </Col>
+        </Row>
+      ) : products.length === 0 ? (
+        <Row>
+          <Col className="text-center py-5">
+            <p className="text-muted">{t('products.noProducts')}</p>
           </Col>
         </Row>
       ) : (
         <Row className="g-4">
-          {filteredProducts.map((product) => (
+          {products.map((product) => (
             <Col key={product.uniqueId || `${product.category}-${product.id}`} xs={12} sm={6} md={4} lg={3}>
               <ProductCard
                 product={product}
@@ -248,13 +252,7 @@ const ManagePage = () => {
 
       <AddProductModal
         show={showAddForm}
-        onAdd={(newProduct) => {
-          handleAdd(newProduct);
-          setShowAddForm(false);
-          setSelectedProduct(null);
-          setIsEditing(false);
-          setEditingProduct(null);
-        }}
+        onAdd={handleAdd}
         onClose={() => {
           setShowAddForm(false);
         }}
@@ -264,58 +262,87 @@ const ManagePage = () => {
 };
 
 const EditProductModal = ({ product, onSave, onClose }) => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState(product);
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.title || formData.title.trim().length === 0) {
+      newErrors.title = t('validation.titleRequired');
+    }
+    if (formData.price !== undefined && formData.price !== null && formData.price < 0) {
+      newErrors.price = t('validation.priceInvalid');
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave(formData);
+    if (validate()) {
+      onSave(formData);
+    }
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: null });
+    }
   };
 
   return (
     <Modal show={!!product} onHide={onClose} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Edit Product</Modal.Title>
+        <Modal.Title>{t('products.editProduct')}</Modal.Title>
       </Modal.Header>
       <Form onSubmit={handleSubmit}>
         <Modal.Body>
           <Form.Group className="mb-3">
-            <Form.Label>Title</Form.Label>
+            <Form.Label>{t('products.titleLabel')}</Form.Label>
             <Form.Control
               type="text"
               name="title"
               value={formData.title}
               onChange={handleChange}
+              isInvalid={!!errors.title}
               required
             />
+            <Form.Control.Feedback type="invalid">
+              {errors.title}
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Price</Form.Label>
+            <Form.Label>{t('products.priceLabel')}</Form.Label>
             <Form.Control
               type="number"
               name="price"
               value={formData.price || ''}
               onChange={handleChange}
+              isInvalid={!!errors.price}
+              min="0"
+              step="0.01"
             />
+            <Form.Control.Feedback type="invalid">
+              {errors.price}
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Status</Form.Label>
+            <Form.Label>{t('products.statusLabel')}</Form.Label>
             <Form.Select
               name="status"
               value={formData.status || ''}
               onChange={handleChange}
             >
-              <option value="In Stock">In Stock</option>
-              <option value="Out of Stock">Out of Stock</option>
-              <option value="Pre-order">Pre-order</option>
+              <option value="In Stock">{t('products.inStock')}</option>
+              <option value="Out of Stock">{t('products.outOfStock')}</option>
+              <option value="Pre-order">{t('products.preOrder')}</option>
             </Form.Select>
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Description</Form.Label>
+            <Form.Label>{t('products.descriptionLabel')}</Form.Label>
             <Form.Control
               as="textarea"
               rows={4}
@@ -327,10 +354,10 @@ const EditProductModal = ({ product, onSave, onClose }) => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={onClose}>
-            Cancel
+            {t('common.cancel')}
           </Button>
           <Button variant="danger" type="submit">
-            Save
+            {t('common.save')}
           </Button>
         </Modal.Footer>
       </Form>
@@ -339,75 +366,120 @@ const EditProductModal = ({ product, onSave, onClose }) => {
 };
 
 const AddProductModal = ({ show, onAdd, onClose }) => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     title: '',
     price: '',
     status: 'In Stock',
     description: '',
     image: '/images/Rectangle(12).png',
+    category: 'other',
   });
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.title || formData.title.trim().length === 0) {
+      newErrors.title = t('validation.titleRequired');
+    }
+    if (formData.price && parseFloat(formData.price) < 0) {
+      newErrors.price = t('validation.priceInvalid');
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAdd({
-      ...formData,
-      price: formData.price ? parseFloat(formData.price) : undefined,
-    });
-    // Reset form
-    setFormData({
-      title: '',
-      price: '',
-      status: 'In Stock',
-      description: '',
-      image: '/images/Rectangle(12).png',
-    });
+    if (validate()) {
+      onAdd({
+        ...formData,
+        price: formData.price ? parseFloat(formData.price) : undefined,
+      });
+      // Reset form
+      setFormData({
+        title: '',
+        price: '',
+        status: 'In Stock',
+        description: '',
+        image: '/images/Rectangle(12).png',
+        category: 'other',
+      });
+      setErrors({});
+    }
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: null });
+    }
   };
 
   return (
     <Modal show={show} onHide={onClose} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Add New Product</Modal.Title>
+        <Modal.Title>{t('products.addProduct')}</Modal.Title>
       </Modal.Header>
       <Form onSubmit={handleSubmit}>
         <Modal.Body>
           <Form.Group className="mb-3">
-            <Form.Label>Title</Form.Label>
+            <Form.Label>{t('products.titleLabel')}</Form.Label>
             <Form.Control
               type="text"
               name="title"
               value={formData.title}
               onChange={handleChange}
+              isInvalid={!!errors.title}
               required
             />
+            <Form.Control.Feedback type="invalid">
+              {errors.title}
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Price</Form.Label>
+            <Form.Label>{t('products.priceLabel')}</Form.Label>
             <Form.Control
               type="number"
               name="price"
               value={formData.price}
               onChange={handleChange}
+              isInvalid={!!errors.price}
+              min="0"
+              step="0.01"
             />
+            <Form.Control.Feedback type="invalid">
+              {errors.price}
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Status</Form.Label>
+            <Form.Label>{t('products.statusLabel')}</Form.Label>
             <Form.Select
               name="status"
               value={formData.status}
               onChange={handleChange}
             >
-              <option value="In Stock">In Stock</option>
-              <option value="Out of Stock">Out of Stock</option>
-              <option value="Pre-order">Pre-order</option>
+              <option value="In Stock">{t('products.inStock')}</option>
+              <option value="Out of Stock">{t('products.outOfStock')}</option>
+              <option value="Pre-order">{t('products.preOrder')}</option>
             </Form.Select>
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Description</Form.Label>
+            <Form.Label>{t('products.categoryLabel')}</Form.Label>
+            <Form.Select
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+            >
+              <option value="board">Board</option>
+              <option value="accessory">Accessory</option>
+              <option value="scooter">Scooter</option>
+              <option value="other">Other</option>
+            </Form.Select>
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>{t('products.descriptionLabel')}</Form.Label>
             <Form.Control
               as="textarea"
               rows={4}
@@ -417,7 +489,7 @@ const AddProductModal = ({ show, onAdd, onClose }) => {
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Image URL</Form.Label>
+            <Form.Label>{t('products.imageLabel')}</Form.Label>
             <Form.Control
               type="text"
               name="image"
@@ -428,10 +500,10 @@ const AddProductModal = ({ show, onAdd, onClose }) => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={onClose}>
-            Cancel
+            {t('common.cancel')}
           </Button>
           <Button variant="danger" type="submit">
-            Add Product
+            {t('products.addProduct')}
           </Button>
         </Modal.Footer>
       </Form>
@@ -440,4 +512,3 @@ const AddProductModal = ({ show, onAdd, onClose }) => {
 };
 
 export default ManagePage;
-
