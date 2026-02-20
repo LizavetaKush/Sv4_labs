@@ -1,12 +1,15 @@
 import React from 'react';
 import { Card, Badge, Form, OverlayTrigger, Tooltip, ButtonGroup, Button } from 'react-bootstrap';
 import { Heart, HeartFill, CartPlus, ArrowBarLeft } from 'react-bootstrap-icons';
-import { useCart } from '../contexts/CartContext';
+import { useTranslation } from 'react-i18next';
+import { useAppDispatch } from '../store/hooks';
+import { addToCart } from '../store/slices/cartSlice';
 import { useWishlist } from '../contexts/WishlistContext';
 import { useCompare } from '../contexts/CompareContext';
 
 const ProductCard = ({ product, onClick, isSelected = false, showCheckbox = false, onSelect }) => {
-  const { addToCart } = useCart();
+  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const { addToCompare, removeFromCompare, isInCompare, compareItems } = useCompare();
 
@@ -25,7 +28,7 @@ const ProductCard = ({ product, onClick, isSelected = false, showCheckbox = fals
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
-    addToCart(product, 1);
+    dispatch(addToCart({ product, quantity: 1 }));
   };
 
   const handleWishlistToggle = (e) => {

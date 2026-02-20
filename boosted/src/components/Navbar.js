@@ -2,16 +2,23 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar as BootstrapNavbar, Nav, NavDropdown, Container, Image, OverlayTrigger, Tooltip, Badge } from 'react-bootstrap';
 import { Cart3, Heart, ArrowBarLeft } from 'react-bootstrap-icons';
-import { useCart } from '../contexts/CartContext';
+import { useTranslation } from 'react-i18next';
+import { useAppSelector } from '../store/hooks';
+import { selectCartItemsCount } from '../store/slices/cartSlice';
 import { useWishlist } from '../contexts/WishlistContext';
 import { useCompare } from '../contexts/CompareContext';
 import navigationData from '../data/navigation.json';
 
 const Navbar = () => {
+  const { t, i18n } = useTranslation();
   const [expanded, setExpanded] = useState(false);
-  const { getCartItemsCount } = useCart();
+  const cartItemsCount = useAppSelector(selectCartItemsCount);
   const { wishlistItems } = useWishlist();
   const { compareItems } = useCompare();
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
 
   return (
     <BootstrapNavbar 
@@ -55,21 +62,36 @@ const Navbar = () => {
           </Nav>
           
           <Nav className="ms-auto align-items-center">
+            {/* Language Switcher */}
+            <NavDropdown
+              title={i18n.language.toUpperCase()}
+              id="language-dropdown"
+              align="end"
+              className="me-2"
+            >
+              <NavDropdown.Item onClick={() => changeLanguage('en')}>
+                English
+              </NavDropdown.Item>
+              <NavDropdown.Item onClick={() => changeLanguage('ru')}>
+                Русский
+              </NavDropdown.Item>
+            </NavDropdown>
+
             {/* Cart Icon */}
             <OverlayTrigger
               placement="bottom"
-              overlay={<Tooltip id="tooltip-cart">Shopping Cart</Tooltip>}
+              overlay={<Tooltip id="tooltip-cart">{t('nav.cart')}</Tooltip>}
             >
               <Nav.Link as={Link} to="/cart" className="position-relative me-2">
                 <Cart3 size={20} />
-                {getCartItemsCount() > 0 && (
+                {cartItemsCount > 0 && (
                   <Badge
                     bg="danger"
                     pill
                     className="position-absolute top-0 start-100 translate-middle"
                     style={{ fontSize: '0.7rem' }}
                   >
-                    {getCartItemsCount()}
+                    {cartItemsCount}
                   </Badge>
                 )}
               </Nav.Link>
@@ -78,7 +100,7 @@ const Navbar = () => {
             {/* Wishlist Icon */}
             <OverlayTrigger
               placement="bottom"
-              overlay={<Tooltip id="tooltip-wishlist">Wishlist</Tooltip>}
+              overlay={<Tooltip id="tooltip-wishlist">{t('nav.wishlist')}</Tooltip>}
             >
               <Nav.Link as={Link} to="/wishlist" className="position-relative me-2">
                 <Heart size={20} />
@@ -99,7 +121,7 @@ const Navbar = () => {
             {compareItems.length > 0 && (
               <OverlayTrigger
                 placement="bottom"
-                overlay={<Tooltip id="tooltip-compare">Compare Products ({compareItems.length})</Tooltip>}
+                overlay={<Tooltip id="tooltip-compare">{t('nav.compare')} ({compareItems.length})</Tooltip>}
               >
                 <Nav.Link as={Link} to="/compare" className="position-relative me-2">
                   <ArrowBarLeft size={20} />
@@ -134,14 +156,14 @@ const Navbar = () => {
                       align="end"
                     >
                       <NavDropdown.Item as={Link} to="/manage">
-                        Manage Products
+                        {t('nav.manage')}
                       </NavDropdown.Item>
                       <NavDropdown.Item as={Link} to="/catalog">
-                        Catalog
+                        {t('nav.catalog')}
                       </NavDropdown.Item>
                       <NavDropdown.Divider />
                       <NavDropdown.Item as={Link} to="/">
-                        Home
+                        {t('nav.home')}
                       </NavDropdown.Item>
                     </NavDropdown>
                   ) : (
