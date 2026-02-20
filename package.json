@@ -1,0 +1,13 @@
+{
+  "name": "sv4-labs",
+  "version": "1.0.0",
+  "description": "Node.js приложение для управления магазином электросамокатов, скейтбордов и запчастей",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["nodejs", "filesystem", "streams", "worker-threads"],
+  "author": "",
+  "license": "ISC"
+}
