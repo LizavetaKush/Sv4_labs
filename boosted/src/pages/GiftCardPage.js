@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Card, Form, Button, InputGroup, Badge, Alert, ListGroup } from 'react-bootstrap';
 import { OverlayTrigger, Tooltip, Popover } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 const GiftCardPage = () => {
+  const { t } = useTranslation();
   const [amount, setAmount] = useState(50);
   const [recipientEmail, setRecipientEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -13,7 +15,7 @@ const GiftCardPage = () => {
     setShowAlert(true);
     setTimeout(() => {
       setShowAlert(false);
-      alert(`Gift card for $${amount} will be sent to ${recipientEmail}`);
+      alert(t('giftCard.giftCardSent', { amount, email: recipientEmail }));
     }, 2000);
   };
 
@@ -23,21 +25,21 @@ const GiftCardPage = () => {
     <Container className="py-5">
       <Row className="mb-4">
         <Col className="text-center">
-          <h1 className="display-4 mb-3">Gift Card</h1>
-          <p className="lead text-muted">Give the gift of electric mobility</p>
+          <h1 className="display-4 mb-3">{t('giftCard.title')}</h1>
+          <p className="lead text-muted">{t('giftCard.subtitle')}</p>
         </Col>
       </Row>
 
       {showAlert && (
         <Alert variant="success" dismissible onClose={() => setShowAlert(false)}>
-          <Alert.Heading>Processing your gift card purchase...</Alert.Heading>
+          <Alert.Heading>{t('giftCard.processing')}</Alert.Heading>
         </Alert>
       )}
 
       <Row className="mb-4">
         <Col md={6} className="mb-4 mb-md-0">
           <Card className="h-100 shadow-sm">
-            <Card.Header as="h3" className="bg-white">Choose Amount</Card.Header>
+            <Card.Header as="h3" className="bg-white">{t('giftCard.chooseAmount')}</Card.Header>
             <Card.Body>
               <Row className="g-2 mb-3">
                 {presetAmounts.map((value) => (
@@ -56,15 +58,15 @@ const GiftCardPage = () => {
               
               <Form.Group className="mb-3">
                 <Form.Label>
-                  Custom Amount{' '}
+                  {t('giftCard.customAmount')}{' '}
                   <OverlayTrigger
                     trigger="click"
                     placement="top"
                     overlay={
                       <Popover>
-                        <Popover.Header as="h3">Custom Amount</Popover.Header>
+                        <Popover.Header as="h3">{t('giftCard.customAmount')}</Popover.Header>
                         <Popover.Body>
-                          Enter any amount between $1 and $1000. Gift cards can be used for any product in our store.
+                          {t('giftCard.customAmountInfo')}
                         </Popover.Body>
                       </Popover>
                     }
@@ -80,7 +82,7 @@ const GiftCardPage = () => {
                     max="1000"
                     value={amount}
                     onChange={(e) => setAmount(parseInt(e.target.value) || 0)}
-                    placeholder="Enter amount"
+                    placeholder={t('giftCard.enterAmount')}
                   />
                 </InputGroup>
               </Form.Group>
@@ -90,28 +92,28 @@ const GiftCardPage = () => {
 
         <Col md={6}>
           <Card className="h-100 shadow-sm">
-            <Card.Header as="h3" className="bg-white">Delivery Information</Card.Header>
+            <Card.Header as="h3" className="bg-white">{t('giftCard.deliveryInformation')}</Card.Header>
             <Card.Body>
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">
-                  <Form.Label>Recipient Email</Form.Label>
+                  <Form.Label>{t('giftCard.recipientEmail')}</Form.Label>
                   <Form.Control
                     type="email"
                     value={recipientEmail}
                     onChange={(e) => setRecipientEmail(e.target.value)}
-                    placeholder="recipient@example.com"
+                    placeholder={t('giftCard.recipientEmailPlaceholder')}
                     required
                   />
                 </Form.Group>
                 
                 <Form.Group className="mb-3">
-                  <Form.Label>Your Message (Optional)</Form.Label>
+                  <Form.Label>{t('giftCard.yourMessage')}</Form.Label>
                   <Form.Control
                     as="textarea"
                     rows={4}
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Write a personal message..."
+                    placeholder={t('giftCard.messagePlaceholder')}
                   />
                 </Form.Group>
                 
@@ -119,7 +121,7 @@ const GiftCardPage = () => {
                   <Card.Body>
                     <Row className="align-items-center">
                       <Col>
-                        <strong>Total:</strong>
+                        <strong>{t('giftCard.total')}:</strong>
                       </Col>
                       <Col xs="auto">
                         <Badge bg="danger" className="fs-4 px-3 py-2">
@@ -131,7 +133,7 @@ const GiftCardPage = () => {
                 </Card>
                 
                 <Button variant="danger" type="submit" size="lg" className="w-100">
-                  Purchase Gift Card
+                  {t('giftCard.purchaseGiftCard')}
                 </Button>
               </Form>
             </Card.Body>
@@ -142,28 +144,28 @@ const GiftCardPage = () => {
       <Row>
         <Col>
           <Card className="shadow-sm">
-            <Card.Header as="h3" className="bg-light">Gift Card Terms</Card.Header>
+            <Card.Header as="h3" className="bg-light">{t('giftCard.terms')}</Card.Header>
             <Card.Body>
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <Badge bg="success" className="me-2">✓</Badge>
-                  Gift cards never expire
+                  {t('giftCard.term1')}
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Badge bg="success" className="me-2">✓</Badge>
-                  Can be used for any product on Boosted USA
+                  {t('giftCard.term2')}
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Badge bg="success" className="me-2">✓</Badge>
-                  Gift cards are delivered via email instantly
+                  {t('giftCard.term3')}
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Badge bg="success" className="me-2">✓</Badge>
-                  Can be combined with other gift cards
+                  {t('giftCard.term4')}
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Badge bg="success" className="me-2">✓</Badge>
-                  Non-refundable but transferable
+                  {t('giftCard.term5')}
                 </ListGroup.Item>
               </ListGroup>
             </Card.Body>
@@ -175,5 +177,3 @@ const GiftCardPage = () => {
 };
 
 export default GiftCardPage;
-
-
