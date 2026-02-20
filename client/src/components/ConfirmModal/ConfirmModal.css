@@ -1,0 +1,11 @@
+.confirm-modal p {
+  margin: 0 0 1.5rem 0;
+  font-size: 1rem;
+  color: #666;
+}
+
+.confirm-modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
