@@ -1,0 +1,266 @@
+[
+  {
+    "recipientCode": "REC001",
+    "publicationIndex": "12345",
+    "duration": 6,
+    "startMonth": 1,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC001",
+    "publicationIndex": "23456",
+    "duration": 3,
+    "startMonth": 2,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC002",
+    "publicationIndex": "34567",
+    "duration": 1,
+    "startMonth": 1,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC002",
+    "publicationIndex": "45678",
+    "duration": 6,
+    "startMonth": 3,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC003",
+    "publicationIndex": "56789",
+    "duration": 3,
+    "startMonth": 1,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC003",
+    "publicationIndex": "67890",
+    "duration": 1,
+    "startMonth": 4,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC004",
+    "publicationIndex": "78901",
+    "duration": 6,
+    "startMonth": 2,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC005",
+    "publicationIndex": "89012",
+    "duration": 3,
+    "startMonth": 1,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC005",
+    "publicationIndex": "90123",
+    "duration": 1,
+    "startMonth": 5,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC006",
+    "publicationIndex": "01234",
+    "duration": 6,
+    "startMonth": 3,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC006",
+    "publicationIndex": "11111",
+    "duration": 3,
+    "startMonth": 1,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC007",
+    "publicationIndex": "22222",
+    "duration": 1,
+    "startMonth": 2,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC008",
+    "publicationIndex": "33333",
+    "duration": 6,
+    "startMonth": 4,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC008",
+    "publicationIndex": "44444",
+    "duration": 3,
+    "startMonth": 1,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC009",
+    "publicationIndex": "55555",
+    "duration": 1,
+    "startMonth": 6,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC009",
+    "publicationIndex": "12345",
+    "duration": 6,
+    "startMonth": 1,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC010",
+    "publicationIndex": "23456",
+    "duration": 3,
+    "startMonth": 2,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC010",
+    "publicationIndex": "34567",
+    "duration": 1,
+    "startMonth": 7,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC011",
+    "publicationIndex": "45678",
+    "duration": 6,
+    "startMonth": 3,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC012",
+    "publicationIndex": "56789",
+    "duration": 3,
+    "startMonth": 1,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC012",
+    "publicationIndex": "67890",
+    "duration": 1,
+    "startMonth": 8,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC013",
+    "publicationIndex": "78901",
+    "duration": 6,
+    "startMonth": 4,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC014",
+    "publicationIndex": "89012",
+    "duration": 3,
+    "startMonth": 2,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC014",
+    "publicationIndex": "90123",
+    "duration": 1,
+    "startMonth": 9,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC015",
+    "publicationIndex": "01234",
+    "duration": 6,
+    "startMonth": 5,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC016",
+    "publicationIndex": "11111",
+    "duration": 3,
+    "startMonth": 1,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC016",
+    "publicationIndex": "22222",
+    "duration": 1,
+    "startMonth": 10,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC017",
+    "publicationIndex": "33333",
+    "duration": 6,
+    "startMonth": 6,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC018",
+    "publicationIndex": "44444",
+    "duration": 3,
+    "startMonth": 3,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC018",
+    "publicationIndex": "55555",
+    "duration": 1,
+    "startMonth": 11,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC019",
+    "publicationIndex": "12345",
+    "duration": 6,
+    "startMonth": 7,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC020",
+    "publicationIndex": "23456",
+    "duration": 3,
+    "startMonth": 2,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    "recipientCode": "REC020",
+    "publicationIndex": "34567",
+    "duration": 1,
+    "startMonth": 12,
+    "startYear": 2024,
+    "photoUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  }
+]

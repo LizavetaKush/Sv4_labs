@@ -1,0 +1,202 @@
+[
+  {
+    "code": "REC001",
+    "fullName": "Иванов Иван Иванович",
+    "address": {
+      "street": "Советская",
+      "house": "10",
+      "apartment": "25"
+    },
+    "photoUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400"
+  },
+  {
+    "code": "REC002",
+    "fullName": "Петров Петр Петрович",
+    "address": {
+      "street": "Ленина",
+      "house": "15",
+      "apartment": "12"
+    },
+    "photoUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400"
+  },
+  {
+    "code": "REC003",
+    "fullName": "Сидорова Мария Сергеевна",
+    "address": {
+      "street": "Пушкина",
+      "house": "20",
+      "apartment": "8"
+    },
+    "photoUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400"
+  },
+  {
+    "code": "REC004",
+    "fullName": "Козлов Алексей Викторович",
+    "address": {
+      "street": "Гагарина",
+      "house": "5",
+      "apartment": "33"
+    },
+    "photoUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400"
+  },
+  {
+    "code": "REC005",
+    "fullName": "Новикова Елена Дмитриевна",
+    "address": {
+      "street": "Мира",
+      "house": "25",
+      "apartment": "17"
+    },
+    "photoUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400"
+  },
+  {
+    "code": "REC006",
+    "fullName": "Смирнов Дмитрий Александрович",
+    "address": {
+      "street": "Кирова",
+      "house": "30",
+      "apartment": "42"
+    },
+    "photoUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400"
+  },
+  {
+    "code": "REC007",
+    "fullName": "Волкова Анна Николаевна",
+    "address": {
+      "street": "Садовая",
+      "house": "12",
+      "apartment": "9"
+    },
+    "photoUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400"
+  },
+  {
+    "code": "REC008",
+    "fullName": "Федоров Сергей Олегович",
+    "address": {
+      "street": "Центральная",
+      "house": "8",
+      "apartment": "21"
+    },
+    "photoUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400"
+  },
+  {
+    "code": "REC009",
+    "fullName": "Морозова Ольга Владимировна",
+    "address": {
+      "street": "Победы",
+      "house": "18",
+      "apartment": "14"
+    },
+    "photoUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400"
+  },
+  {
+    "code": "REC010",
+    "fullName": "Лебедев Андрей Игоревич",
+    "address": {
+      "street": "Молодежная",
+      "house": "22",
+      "apartment": "6"
+    },
+    "photoUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400"
+  },
+  {
+    "code": "REC011",
+    "fullName": "Соколова Татьяна Павловна",
+    "address": {
+      "street": "Школьная",
+      "house": "7",
+      "apartment": "19"
+    },
+    "photoUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400"
+  },
+  {
+    "code": "REC012",
+    "fullName": "Павлов Игорь Сергеевич",
+    "address": {
+      "street": "Спортивная",
+      "house": "14",
+      "apartment": "31"
+    },
+    "photoUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400"
+  },
+  {
+    "code": "REC013",
+    "fullName": "Семенова Наталья Валерьевна",
+    "address": {
+      "street": "Зеленая",
+      "house": "9",
+      "apartment": "11"
+    },
+    "photoUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400"
+  },
+  {
+    "code": "REC014",
+    "fullName": "Григорьев Максим Юрьевич",
+    "address": {
+      "street": "Новая",
+      "house": "16",
+      "apartment": "27"
+    },
+    "photoUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400"
+  },
+  {
+    "code": "REC015",
+    "fullName": "Романова Виктория Андреевна",
+    "address": {
+      "street": "Солнечная",
+      "house": "11",
+      "apartment": "4"
+    },
+    "photoUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400"
+  },
+  {
+    "code": "REC016",
+    "fullName": "Орлов Владимир Михайлович",
+    "address": {
+      "street": "Лесная",
+      "house": "13",
+      "apartment": "22"
+    },
+    "photoUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400"
+  },
+  {
+    "code": "REC017",
+    "fullName": "Антонова Светлана Борисовна",
+    "address": {
+      "street": "Речная",
+      "house": "19",
+      "apartment": "15"
+    },
+    "photoUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400"
+  },
+  {
+    "code": "REC018",
+    "fullName": "Тарасов Роман Евгеньевич",
+    "address": {
+      "street": "Парковая",
+      "house": "6",
+      "apartment": "38"
+    },
+    "photoUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400"
+  },
+  {
+    "code": "REC019",
+    "fullName": "Белова Ирина Константиновна",
+    "address": {
+      "street": "Цветочная",
+      "house": "21",
+      "apartment": "13"
+    },
+    "photoUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400"
+  },
+  {
+    "code": "REC020",
+    "fullName": "Комаров Артем Денисович",
+    "address": {
+      "street": "Трудовая",
+      "house": "4",
+      "apartment": "29"
+    },
+    "photoUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400"
+  }
+]

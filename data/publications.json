@@ -1,0 +1,107 @@
+[
+  {
+    "index": "12345",
+    "type": "журнал",
+    "title": "Научный журнал",
+    "monthlyPrice": 25.50,
+    "photoUrl": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400"
+  },
+  {
+    "index": "23456",
+    "type": "газета",
+    "title": "Ежедневная газета",
+    "monthlyPrice": 15.00,
+    "photoUrl": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400"
+  },
+  {
+    "index": "34567",
+    "type": "журнал",
+    "title": "Журнал о технологиях",
+    "monthlyPrice": 30.00,
+    "photoUrl": "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400"
+  },
+  {
+    "index": "45678",
+    "type": "газета",
+    "title": "Региональная газета",
+    "monthlyPrice": 12.50,
+    "photoUrl": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400"
+  },
+  {
+    "index": "56789",
+    "type": "журнал",
+    "title": "Журнал мод",
+    "monthlyPrice": 35.75,
+    "photoUrl": "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400"
+  },
+  {
+    "index": "67890",
+    "type": "газета",
+    "title": "Спортивная газета",
+    "monthlyPrice": 18.00,
+    "photoUrl": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400"
+  },
+  {
+    "index": "78901",
+    "type": "журнал",
+    "title": "Журнал о здоровье",
+    "monthlyPrice": 28.50,
+    "photoUrl": "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400"
+  },
+  {
+    "index": "89012",
+    "type": "газета",
+    "title": "Экономическая газета",
+    "monthlyPrice": 20.00,
+    "photoUrl": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400"
+  },
+  {
+    "index": "90123",
+    "type": "журнал",
+    "title": "Журнал для детей",
+    "monthlyPrice": 22.00,
+    "photoUrl": "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400"
+  },
+  {
+    "index": "01234",
+    "type": "газета",
+    "title": "Культурная газета",
+    "monthlyPrice": 16.50,
+    "photoUrl": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400"
+  },
+  {
+    "index": "11111",
+    "type": "журнал",
+    "title": "Журнал о путешествиях",
+    "monthlyPrice": 32.00,
+    "photoUrl": "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400"
+  },
+  {
+    "index": "22222",
+    "type": "газета",
+    "title": "Новостная газета",
+    "monthlyPrice": 14.00,
+    "photoUrl": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400"
+  },
+  {
+    "index": "33333",
+    "type": "журнал",
+    "title": "Журнал о кулинарии",
+    "monthlyPrice": 26.50,
+    "photoUrl": "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400"
+  },
+  {
+    "index": "44444",
+    "type": "газета",
+    "title": "Образовательная газета",
+    "monthlyPrice": 17.00,
+    "photoUrl": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400"
+  },
+  {
+    "index": "55555",
+    "type": "журнал",
+    "title": "Журнал о природе",
+    "monthlyPrice": 24.00,
+    "photoUrl": "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400"
+  }
+]
